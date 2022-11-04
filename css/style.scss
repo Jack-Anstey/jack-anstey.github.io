@@ -1,0 +1,14 @@
+/**
+* Make scrolling smooth
+*/
+html {
+    scroll-behavior: smooth;
+}
+
+div {
+    #contentNetwork, #contentWordBubble{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
