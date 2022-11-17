@@ -1,11 +1,13 @@
 /* Variables! */
-$background-color: #121212;
+$background-color: #121212; //spotify "grey"
 $content-width: 75%; //only use a portion of the screen for the vis
-$slider-width: 25%; //make the slider much smaller
+$slider-width: 33%; //make the slider a portion of the above width
 $slider-height: 1em;
 $size-multiplyer: 2;
-$slider-thumb-color: #1cd760;
+$slider-thumb-color: #1cd760; //spotify green
 $slider-thumb-color-active: #dddddd; //smidge offwhite for everyone's eyes
+$slider-border-color: #dddddd;
+$slider-border-thiccness: 2px;
 $text-color: #dddddd;
 
 html {
@@ -15,6 +17,7 @@ html {
 body{
     background-color: $background-color !important;
     color: $text-color !important;
+    font-family: 'Proxima Nova' !important;
     //display: flex;
 }
 
@@ -29,8 +32,9 @@ div {
 }
 
 .userInputContainer {
-    width: $slider-width;
+    width: $content-width;
     flex-direction: column; //this makes it so that each div in the container is a column
+    align-items: center;
 }
 
 .valuesContainer {
@@ -42,9 +46,11 @@ div {
 
 .sliderContainer {
     //CANNOT USE PADDING HERE -- WILL BREAK THE SLIDER
+    width: $slider-width;
     position: relative;
     justify-content: center;
     align-items: center;
+    filter: drop-shadow(0 0 30px rgb(255, 255, 255));
 }
 
 //The below is heavily modified from the slider tutorial
@@ -54,6 +60,7 @@ div {
     width: 100%; //uses 100% of the space avaliable
     height: $slider-height; //the height of the track
     border-radius: $slider-height; //round off the ends
+    border: $slider-border-thiccness solid $slider-border-color;
 }
 
 input[type="range"] { //the bar that the slider dots live on
@@ -73,6 +80,7 @@ input[type="range"] { //the bar that the slider dots live on
         //margin-top: -0.5em;
         pointer-events: auto;
         border-radius: 50%;
+        border: $slider-border-thiccness solid $slider-border-color;
     }
 
     &:active::-webkit-slider-thumb{
