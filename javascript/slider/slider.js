@@ -6,9 +6,8 @@ window.onload = function(){
     slideTwo();
 }
 
+//check to see if we want to swap. Once we are done, say for certain that we do not want to swap
 window.onclick = function(){
-    console.log(wantSwap);
-    checkSwap();
     checkSwap();
     wantSwap = "none";
 }
@@ -52,6 +51,7 @@ function slideTwo(){
     fillColor();
 }
 
+//swap the draw order of the thumbs on the slider
 function swapOrder(thumb){
     if (thumb.localeCompare("one")){
         swap.appendChild(sliderTwo);
@@ -60,6 +60,7 @@ function swapOrder(thumb){
     }
 }
 
+//checks to see if we want to swap. If so, see if we should swap.
 function checkSwap(){
     if (wantSwap == "one"){
         if (inFront != "one"){
