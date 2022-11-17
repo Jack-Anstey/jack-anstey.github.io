@@ -2,8 +2,16 @@
 //https://codingartistweb.com/2021/06/double-range-slider-html-css-javascript/
 
 window.onload = function(){
-    slideOne();
-    slideTwo();
+    // console.log(sliderOne.value == sliderMaxValue);
+    // console.log(sliderTwo.value == sliderMaxValue);
+    // if (sliderTwo.value == sliderMaxValue){
+    //     console.log("Here!");
+    //     slideTwo();
+    //     slideOne();
+    // } else {
+        slideOne();
+        slideTwo();
+    //}
 }
 
 //new variables for making color less painful
