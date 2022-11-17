@@ -1,12 +1,20 @@
 /* Variables! */
+$background-color: #121212;
 $content-width: 75%; //only use a portion of the screen for the vis
 $slider-width: 25%; //make the slider much smaller
+$slider-height: 1em;
+$size-multiplyer: 2;
+$slider-thumb-color: #1cd760;
+$slider-thumb-color-active: #dddddd; //smidge offwhite for everyone's eyes
+$text-color: #dddddd;
 
 html {
     scroll-behavior: smooth;
 }
 
-body {
+body{
+    background-color: $background-color !important;
+    color: $text-color !important;
     //display: flex;
 }
 
@@ -44,8 +52,8 @@ div {
 
 .sliderTrack {
     width: 100%; //uses 100% of the space avaliable
-    height: 1em;
-    border-radius: 5px;
+    height: $slider-height; //the height of the track
+    border-radius: $slider-height; //round off the ends
 }
 
 input[type="range"] { //the bar that the slider dots live on
@@ -58,12 +66,21 @@ input[type="range"] { //the bar that the slider dots live on
 
     &::-webkit-slider-thumb {
         appearance: none; //hide the original dots
-        height: 2em; //the rest defines what our new ones look like
-        width: 2em;
-        background-color: #3264fe;
+        height: $slider-height * $size-multiplyer; //the rest defines what our new ones look like
+        width: $slider-height * $size-multiplyer;
+        background-color: $slider-thumb-color;
         cursor: pointer;
         //margin-top: -0.5em;
         pointer-events: auto;
         border-radius: 50%;
     }
+
+    &:active::-webkit-slider-thumb{
+        background-color: $slider-thumb-color-active;
+        border: 3px solid $slider-thumb-color;
+    }
+}
+
+#slider1 { //exclusively for javascript, does nothing else. DO NOT REMOVE
+    color: $slider-thumb-color;
 }
