@@ -1,5 +1,6 @@
 /* Variables! */
-$content-width: 50%; //only use a portion of the screen
+$content-width: 75%; //only use a portion of the screen for the vis
+$slider-width: 25%; //make the slider much smaller
 
 html {
     scroll-behavior: smooth;
@@ -13,14 +14,14 @@ div {
     display: flex; //make every div flex
 }
 
-#contentNetwork, #contentWordBubble {
+.bodyContainer {
     flex-direction: column;
     justify-content: center; //center whatever is in our svg divs
     align-items: center;
 }
 
 .userInputContainer {
-    width: $content-width;
+    width: $slider-width;
     flex-direction: column; //this makes it so that each div in the container is a column
 }
 
@@ -28,7 +29,7 @@ div {
     flex-direction: row; //we want things in the value container to be all in one row
     justify-content: center; //center the things in the values container
     align-items: center;
-    padding: 40px; //add some much needed space
+    padding: 40px; //add some much needed space between the slider and the range report
 }
 
 .sliderContainer {
@@ -42,7 +43,7 @@ div {
 //https://codingartistweb.com/2021/06/double-range-slider-html-css-javascript/
 
 .sliderTrack {
-    width: 100%;
+    width: 100%; //uses 100% of the space avaliable
     height: 1em;
     border-radius: 5px;
 }
