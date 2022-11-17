@@ -8,30 +8,77 @@ body {
 
 div {
     display: flex; //make every div flex
+    #contentNetwork, #contentWordBubble {
+        flex-direction: column;
+        justify-content: center; //center whatever is in our svg divs
+    }
+
+    .container {
+        width: 75%; //only use half the screen
+        flex-direction: column; //this makes it so that each div in the container is a column
+    }
+
+    .valuesContainer {
+        flex-direction: row; //we want things in the value container to be all in one row
+        justify-content: center; //center the things in the values container
+        padding: 40px; //add some much needed space
+    }
+
+    .sliderContainer {
+        //width: 100%;
+        justify-content: center;
+        padding: 40px; //add some much needed space
+    }
 }
 
-#contentNetwork, #contentWordBubble{
-    display: flex;
-    flex-direction: column;
-    justify-content: center; //center whatever is in our svg divs
-}
-
-.container {
-    width: 50%;
-    flex-direction: column; //this makes it so that each div in the container is a column
-}
-
-.valuesContainer {
-    flex-direction: row; //we want things in the value container to be all in one row
-    justify-content: center; //center the things in the values container
-    padding: 40px; //add some much needed space
-}
-
-.sliderContainer {
+input[type="range"] { //the bar that the slider dots live on
+    appearance: none; //hide them!
     //width: 100%;
-    justify-content: center;
-    padding: 40px; //add some much needed space
+    outline: none;
+    position: absolute;
+    //margin: auto;
+    // top: 0;
+    // bottom: 0;
+    background-color: transparent;
+    pointer-events: none;
+
+    &::-webkit-slider-thumb { //hide the dots
+        appearance: none;
+        height: 1em;
+        width: 1em;
+        background-color: #3264fe;
+        cursor: pointer;
+        // margin-top: -9px;
+        pointer-events: auto;
+        border-radius: 50%;
+    }
+
+    &::-webkit-slider-runnable-track{
+        appearance: none;
+    }
+    
 }
+
+.sliderTrack {
+    width: 100%;
+    // position: relative;
+    //position: absolute;
+    height: 5px;
+    border-radius: 5px;
+}
+
+// input[type=range]::-webkit-slider-thumb {
+//     -webkit-appearance: none;
+//     border: 1px solid #000000;
+//     height: 36px;
+//     width: 16px;
+//     border-radius: 3px;
+//     background: #ffffff;
+//     cursor: pointer;
+//     margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+//     box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
+// }
+
 
 
 
