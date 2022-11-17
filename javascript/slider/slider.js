@@ -2,23 +2,25 @@
 //https://codingartistweb.com/2021/06/double-range-slider-html-css-javascript/
 
 window.onload = function(){
-    // console.log(sliderOne.value == sliderMaxValue);
-    // console.log(sliderTwo.value == sliderMaxValue);
-    // if (sliderTwo.value == sliderMaxValue){
-    //     console.log("Here!");
-    //     slideTwo();
-    //     slideOne();
-    // } else {
-        slideOne();
-        slideTwo();
-    //}
+    slideOne();
+    slideTwo();
+}
+
+window.onclick = function(){
+    console.log(wantSwap);
+    checkSwap();
+    checkSwap();
+    wantSwap = "none";
 }
 
 //new variables for making color less painful
 //getColorFromCSS("input[type=\"range\"]:active::-webkit-slider-thumb");
-notRangeColor = getColorFromCSS("range1", "color");
-rangeColor = getColorFromCSS("slider1", "color");
-//let spotifyColor = 
+let notRangeColor = getColorFromCSS("range1", "color");
+let rangeColor = getColorFromCSS("slider1", "color");
+const swap = document.getElementById("swap")
+inFront = "one";
+wantSwap = "none";
+
 //og variables
 let sliderOne = document.getElementById("slider1");
 let sliderTwo = document.getElementById("slider2");
@@ -32,19 +34,46 @@ let sliderMaxValue = document.getElementById("slider1").max;
 let sliderMinValue = document.getElementById("slider1").min; //for making a slider with a different min than 0
 
 function slideOne(){
+    wantSwap = "one";
     if(parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= minGap){
         sliderOne.value = parseInt(sliderTwo.value) - minGap;
     }
     displayValOne.textContent = sliderOne.value;
     fillColor();
+    
 }
 
 function slideTwo(){
+    wantSwap = "two";
     if(parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= minGap){
         sliderTwo.value = parseInt(sliderOne.value) + minGap;
     }
     displayValTwo.textContent = sliderTwo.value;
     fillColor();
+}
+
+function swapOrder(thumb){
+    if (thumb.localeCompare("one")){
+        swap.appendChild(sliderTwo);
+    } else if (thumb.localeCompare("two")){
+        swap.appendChild(sliderOne);
+    }
+}
+
+function checkSwap(){
+    if (wantSwap == "one"){
+        if (inFront != "one"){
+            swapOrder("one");
+            inFront = "one";
+        } 
+    }
+    if (wantSwap == "two"){        
+        if(inFront != "two") {
+            swapOrder("two");
+            inFront = "two";
+        }
+        wantSwap = false;
+    }
 }
 
 function fillColor(){

@@ -51,7 +51,11 @@ div {
     position: relative;
     justify-content: center;
     align-items: center;
-    filter: drop-shadow(0 0 5px #7a7a7a);
+    //filter: drop-shadow(0 0 5px #7a7a7a);
+}
+
+#slider1 { //exclusively for javascript, does nothing else. DO NOT REMOVE
+    color: $slider-thumb-color;
 }
 
 //The below is heavily modified from the slider tutorial
@@ -88,8 +92,4 @@ input[type="range"] { //the bar that the slider dots live on
         background-color: $slider-thumb-color-active;
         //border: 3px solid $slider-thumb-color;
     }
-}
-
-#slider1 { //exclusively for javascript, does nothing else. DO NOT REMOVE
-    color: $slider-thumb-color;
 }
