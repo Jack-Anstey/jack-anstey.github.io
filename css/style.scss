@@ -17,7 +17,8 @@ html {
 body{
     background-color: $background-color !important;
     color: $text-color !important;
-    font-family: 'Proxima Nova' !important;
+    //font stack
+    font-family: 'Montserrat',  -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
     //display: flex;
 }
 
