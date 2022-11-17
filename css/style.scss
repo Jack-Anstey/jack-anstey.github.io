@@ -1,3 +1,6 @@
+/* Variables! */
+$content-width: 50%; //only use a portion of the screen
+
 html {
     scroll-behavior: smooth;
 }
@@ -8,181 +11,58 @@ body {
 
 div {
     display: flex; //make every div flex
-    #contentNetwork, #contentWordBubble {
-        flex-direction: column;
-        justify-content: center; //center whatever is in our svg divs
-    }
-
-    .container {
-        width: 75%; //only use half the screen
-        flex-direction: column; //this makes it so that each div in the container is a column
-    }
-
-    .valuesContainer {
-        flex-direction: row; //we want things in the value container to be all in one row
-        justify-content: center; //center the things in the values container
-        padding: 40px; //add some much needed space
-    }
-
-    .sliderContainer {
-        //width: 100%;
-        justify-content: center;
-        padding: 40px; //add some much needed space
-    }
 }
 
-input[type="range"] { //the bar that the slider dots live on
-    appearance: none; //hide them!
-    //width: 100%;
-    outline: none;
-    position: absolute;
-    //margin: auto;
-    // top: 0;
-    // bottom: 0;
-    background-color: transparent;
-    pointer-events: none;
-
-    &::-webkit-slider-thumb { //hide the dots
-        appearance: none;
-        height: 1em;
-        width: 1em;
-        background-color: #3264fe;
-        cursor: pointer;
-        // margin-top: -9px;
-        pointer-events: auto;
-        border-radius: 50%;
-    }
-
-    &::-webkit-slider-runnable-track{
-        appearance: none;
-    }
-    
+#contentNetwork, #contentWordBubble {
+    flex-direction: column;
+    justify-content: center; //center whatever is in our svg divs
+    align-items: center;
 }
+
+.userInputContainer {
+    width: $content-width;
+    flex-direction: column; //this makes it so that each div in the container is a column
+}
+
+.valuesContainer {
+    flex-direction: row; //we want things in the value container to be all in one row
+    justify-content: center; //center the things in the values container
+    align-items: center;
+    padding: 40px; //add some much needed space
+}
+
+.sliderContainer {
+    //CANNOT USE PADDING HERE -- WILL BREAK THE SLIDER
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+//The below is heavily modified from the slider tutorial
+//https://codingartistweb.com/2021/06/double-range-slider-html-css-javascript/
 
 .sliderTrack {
     width: 100%;
-    // position: relative;
-    //position: absolute;
-    height: 5px;
+    height: 1em;
     border-radius: 5px;
 }
 
-// input[type=range]::-webkit-slider-thumb {
-//     -webkit-appearance: none;
-//     border: 1px solid #000000;
-//     height: 36px;
-//     width: 16px;
-//     border-radius: 3px;
-//     background: #ffffff;
-//     cursor: pointer;
-//     margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
-//     box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
-// }
+input[type="range"] { //the bar that the slider dots live on
+    appearance: none; //hide the orignal slider
+    outline: none;
+    width:100%;
+    background-color: transparent;
+    pointer-events: none;
+    position: absolute;
 
-
-
-
-//The below is from the slider tutorial
-//https://codingartistweb.com/2021/06/double-range-slider-html-css-javascript/
-
-// input[type="range"]{
-//     -webkit-appearance: none;
-//     -moz-appearance: none;
-//     appearance: none;
-//     width: 100%;
-//     outline: none;
-//     position: absolute;
-//     margin: auto;
-//     top: 0;
-//     bottom: 0;
-//     background-color: transparent;
-//     pointer-events: none;
-// }
-
-// .slider-track{
-//     width: 100%;
-//     height: 5px;
-//     position: relative; //this makes it adhere to the parent div
-//     margin: auto;
-//     top: 0;
-//     bottom: 0;
-//     border-radius: 5px;
-// }
-
-// input[type="range"]::-webkit-slider-runnable-track{
-//     -webkit-appearance: none;
-//     height: 5px;
-// }
-
-// input[type="range"]::-moz-range-track{
-//     -moz-appearance: none;
-//     height: 5px;
-// }
-
-// input[type="range"]::-ms-track{
-//     appearance: none;
-//     height: 5px;
-// }
-
-// input[type="range"]::-webkit-slider-thumb{
-//     -webkit-appearance: none;
-//     height: 1.7em;
-//     width: 1.7em;
-//     background-color: #3264fe;
-//     cursor: pointer;
-//     margin-top: -9px;
-//     pointer-events: auto;
-//     border-radius: 50%;
-// }
-
-// input[type="range"]::-moz-range-thumb{
-//     -webkit-appearance: none;
-//     height: 1.7em;
-//     width: 1.7em;
-//     cursor: pointer;
-//     border-radius: 50%;
-//     background-color: #3264fe;
-//     pointer-events: auto;
-// }
-
-// input[type="range"]::-ms-thumb{
-//     appearance: none;
-//     height: 1.7em;
-//     width: 1.7em;
-//     cursor: pointer;
-//     border-radius: 50%;
-//     background-color: #3264fe;
-//     pointer-events: auto;
-// }
-
-// input[type="range"]:active::-webkit-slider-thumb{
-//     background-color: #ffffff;
-//     border: 3px solid #3264fe;
-// }
-
-// .values{
-//     background-color: #3264fe;
-//     width: 32%;
-//     position: relative;
-//     margin: auto;
-//     padding: 10px 20px;
-//     border-radius: 5px;
-//     text-align: center;
-//     font-weight: 500;
-//     font-size: 25px;
-//     color: #ffffff;
-// }
-
-// .values:before{
-//     content: "";
-//     position: absolute;
-//     height: 0;
-//     width: 0;
-//     border-top: 15px solid #3264fe;
-//     border-left: 15px solid transparent;
-//     border-right: 15px solid transparent;
-//     margin: auto;
-//     bottom: -14px;
-//     left: 0;
-//     right: 0;
-// }
+    &::-webkit-slider-thumb {
+        appearance: none; //hide the original dots
+        height: 2em; //the rest defines what our new ones look like
+        width: 2em;
+        background-color: #3264fe;
+        cursor: pointer;
+        //margin-top: -0.5em;
+        pointer-events: auto;
+        border-radius: 50%;
+    }
+}
