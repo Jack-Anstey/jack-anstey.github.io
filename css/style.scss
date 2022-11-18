@@ -9,6 +9,7 @@ $slider-thumb-color-active: #158f42;
 $slider-border-color: #000000;
 $slider-border-thiccness: 1px;
 $text-color: #dddddd; //smidge offwhite for everyone's eyes
+$text-header-size: 10em;
 
 html {
     scroll-behavior: smooth;
@@ -20,6 +21,10 @@ body{
     //font stack
     font-family: 'Montserrat',  -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
     //display: flex;
+}
+
+.h0 { //so big we are beyond h1 --> h0
+    font-size: $text-header-size;
 }
 
 div {

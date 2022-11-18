@@ -13,12 +13,11 @@ window.onclick = function(){
 }
 
 //new variables for making color less painful
-//getColorFromCSS("input[type=\"range\"]:active::-webkit-slider-thumb");
 let notRangeColor = getColorFromCSS("range1", "color");
 let rangeColor = getColorFromCSS("slider1", "color");
-const swap = document.getElementById("swap")
-inFront = "one";
-wantSwap = "none";
+const swap = document.getElementById("swap") //the div whose contents we will be swapping around
+inFront = "one"; //which thumb starts in front
+wantSwap = "none"; //if we click, do we actually want to swap
 
 //og variables
 let sliderOne = document.getElementById("slider1");
