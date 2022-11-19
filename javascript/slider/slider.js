@@ -81,6 +81,8 @@ function fillColor(){
     percent1 = ((sliderOne.value-sliderMinValue) / (sliderMaxValue-sliderMinValue)) * 100;
     percent2 = ((sliderTwo.value-sliderMinValue) / (sliderMaxValue-sliderMinValue)) * 100;
     sliderTrack.style.background = `linear-gradient(to right, ${notRangeColor} ${percent1}% , ${rangeColor} ${percent1}% , ${rangeColor} ${percent2}%, ${notRangeColor} ${percent2}%)`;
+    localStorage.setItem('minYear', parseInt(displayValOne.textContent));
+    localStorage.setItem('maxYear', parseInt(displayValTwo.textContent));
 }
 
 //help from https://www.geeksforgeeks.org/how-to-read-css-rule-values-with-javascript
