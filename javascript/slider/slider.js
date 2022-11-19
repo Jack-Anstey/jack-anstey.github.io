@@ -4,6 +4,8 @@
 window.onload = function(){
     slideOne();
     slideTwo();
+    checkSwap();
+    wantSwap = "none";
 }
 
 //check to see if we want to swap. Once we are done, say for certain that we do not want to swap
