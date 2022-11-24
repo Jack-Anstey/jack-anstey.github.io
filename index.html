@@ -5,9 +5,10 @@
     <link rel="shortcut icon" href="assets/images/favicons/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="css/style.css">
 
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- <script src="https://d3js.org/d3.v7.min.js"></script> -->
+    <!-- <script src="https://d3js.org/d3.v3.min.js"></script>
     <script type="text/javascript" src="javascript/visualizations/wordbubble.js"></script>
-    <script type="text/javascript" src="javascript/visualizations/network.js"></script>
+    <script type="text/javascript" src="javascript/visualizations/wordbubblev3.js"></script> -->
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
@@ -25,17 +26,15 @@
 <body>
 <div class="bodyContainer p-5">
     <div class="d-flex flex-column align-content-center pb-5">
-        <div class="projectHeader justify-content-center h0">
+        <div class="projectHeader justify-content-center text-center h0">
             <p>Project iMuse</p>
         </div>
-        <div class="subHeader justify-content-center h3">
+        <div class="subHeader justify-content-center text-center h3">
             <p>What Lyrics Are Used In Popular Music?</p>
         </div>
     </div>
     <div id="contentWordBubble"><p class="text-bg-danger">D3 CONTENT WILL BE HERE</p></div>
     <div id='canvas' style="text-align:center"></div>
-    <script src="https://d3js.org/d3.v3.min.js"></script>
-    <script type="text/javascript" src="javascript/visualizations/wordbubblev3.js"></script>
     <div class="userInputContainer">
         <div class="valuesContainer">
             <p class="text-center">The range of dates to view:
@@ -53,5 +52,8 @@
 </div>
 
 <script type="text/javascript" src="javascript/slider/slider.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="javascript/visualizations/wordbubble.js"></script>
+<script type="text/javascript" src="javascript/visualizations/wordbubblev3.js"></script>
 </body>
 </html>
