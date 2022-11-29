@@ -1,6 +1,7 @@
 // set the dimensions and margins of the graph
-const width = 1000
-const height = 700
+let area = document.querySelector('#contentWordBubble');
+let width = area.offsetWidth;
+let height = area.offsetHeight;
 
 // append the svg object to the body of the page
 const svg = d3.select("#contentWordBubble")
