@@ -1,65 +1,109 @@
+// set the dimensions and margins of the graph
+const width = 1000
+const height = 700
 
-var diameter = 960,
-    format = d3.format(",d"),
-    color = d3.scale.category20c();
+// append the svg object to the body of the page
+const svg = d3.select("#canvas")
+  .append("svg")
+    .attr("width", width)
+    .attr("height", height)
 
-var bubble = d3.layout.pack()
-    .sort(null)
-    .size([diameter, diameter])
-    .padding(1.5);
+// Read data
+d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/11_SevCatOneNumNestedOneObsPerGroup.csv").then( function(data) {
 
-var svg = d3.select("#canvas").append("svg")
-    .attr("width", diameter)
-    .attr("height", diameter)
-    .attr("class", "bubble");
+  // Filter a bit the data -> more than 1 million inhabitants
+  data = data.filter(function(d){ return d.value>10000000 })
 
-d3.json("./assets/data/flare.json", function (error, root) {
-    var node = svg.selectAll(".node")
-        .data(bubble.nodes(classes(root))
-            .filter(function (d) {
-                return !d.children;
-            }))
-        .enter().append("g")
-        .attr("class", "node")
-        .attr("transform", function (d) {
-            return "translate(" + d.x + "," + d.y + ")";
-        });
+  // Color palette for continents?
+  const color = d3.scaleOrdinal()
+    .domain(["Asia", "Europe", "Africa", "Oceania", "Americas"])
+    .range(d3.schemeSet1);
 
-    node.append("title")
-        .text(function (d) {
-            return d.className + ": " + format(d.value);
-        });
+  // Size scale for countries
+  const size = d3.scaleLinear()
+    .domain([0, 1400000000])
+    .range([20,100])  // circle will be between 7 and 55 px wide
 
-    node.append("circle")
-        .attr("r", function (d) {
-            return d.r;
-        })
-        .style("fill", function (d) {
-            return color(d.packageName);
-        });
+  // create a tooltip
+  const Tooltip = d3.select("#canvas")
+    .append("div")
+    .style("opacity", 0)
+    .attr("class", "tooltip")
+    .style("background-color", "white")
+    .style("border", "solid")
+    .style("border-width", "2px")
+    .style("border-radius", "5px")
+    .style("padding", "5px")
 
-    node.append("text")
-        .attr("dy", ".3em")
-        .style("text-anchor", "middle")
-        .style("font-size", "10px")
-        .text(function (d) {
-            return d.className.substring(0, d.r / 3);
-        });
-});
+  // Three function that change the tooltip when user hover / move / leave a cell
+  const mouseover = function(event, d) {
+    Tooltip
+      .style("opacity", 1)
+  }
+  const mousemove = function(event, d) {
+    Tooltip
+      .html('<u>' + d.key + '</u>' + "<br>" + d.value + " inhabitants")
+      .style("left", (event.x) + "px")
+      .style("top", (event.y) + "px")
+  }
+  var mouseleave = function(event, d) {
+    Tooltip
+      .style("opacity", 0)
+  }
 
-// Returns a flattened hierarchy containing all leaf nodes under the root.
-function classes(root) {
-    var classes = [];
+  // Initialize the circle: all located at the center of the svg area
+  var node = svg.append("g")
+    .selectAll("circle")
+    .data(data)
+    .join("circle")
+      .attr("class", "node")
+      .attr("r", d => size(d.value))
+      .attr("cx", width / 2)
+      .attr("cy", height / 2)
+      .style("fill", d => color(d.region))
+      .style("fill-opacity", 0.8)
+      .attr("stroke", "black")
+      .style("stroke-width", 1)
+      .on("mouseover", mouseover) // What to do when hovered
+      .on("mousemove", mousemove)
+      .on("mouseleave", mouseleave)
+      .call(d3.drag() // call specific function when circle is dragged
+           .on("start", dragstarted)
+           .on("drag", dragged)
+           .on("end", dragended));
 
-    function recurse(name, node) {
-        if (node.children) node.children.forEach(function (child) {
-            recurse(node.name, child);
-        });
-        else classes.push({packageName: name, className: node.name, value: node.size});
-    }
+  // Features of the forces applied to the nodes:
+  const simulation = d3.forceSimulation()
+      .force("boundary", forceBoundary(0,0,width, height))
 
-    recurse(null, root);
-    return {children: classes};
-}
+      .force("center", d3.forceCenter().x(width / 2).y(height / 2)) // Attraction to the center of the svg area
+      .force("charge", d3.forceManyBody().strength(.1)) // Nodes are attracted one each other of value is > 0
+      .force("collide", d3.forceCollide().strength(.2).radius(function(d){ return (size(d.value)+3) }).iterations(1)) // Force that avoids circle overlapping
 
-d3.select(self.frameElement).style("height", diameter + "px");
+  // Apply these forces to the nodes and update their positions.
+  // Once the force algorithm is happy with positions ('alpha' value is low enough), simulations will stop.
+  simulation
+      .nodes(data)
+      .on("tick", function(d){
+        node
+            .attr("cx", d => d.x)
+            .attr("cy", d => d.y)
+      });
+
+  // What happens when a circle is dragged?
+  function dragstarted(event, d) {
+    if (!event.active) simulation.alphaTarget(.03).restart();
+    d.fx = d.x;
+    d.fy = d.y;
+  }
+  function dragged(event, d) {
+    d.fx = event.x;
+    d.fy = event.y;
+  }
+  function dragended(event, d) {
+    if (!event.active) simulation.alphaTarget(.03);
+    d.fx = null;
+    d.fy = null;
+  }
+
+})
