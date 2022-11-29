@@ -42,6 +42,20 @@ div {
     align-items: center;
 }
 
+.tooltip {
+    position: absolute;
+    max-width: 200px;
+    height: auto;
+    padding: 5px;
+    color: white;
+    background-color: rgb(6, 44, 56);
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    pointer-events: none; /* CRITICAL disable mouse */
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: medium;
+}
+
 .userInputContainer {
     width: $content-width;
     flex-direction: column; //this makes it so that each div in the container is a column
