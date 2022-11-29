@@ -11,16 +11,10 @@ const svg = d3.select("#contentWordBubble")
 
 // Read data
 d3.csv("assets/data/test_word.csv").then(function (data) {
-
-    // Filter a bit the data -> more than 1 million inhabitants
-    // data = data.filter(function (d) {
-    //     return d.value > 10000000
-    // })
-
-    // Color palette for continents?
+    // Color palette
     const color = d3.scaleLinear().domain([0, 1]).range(["blue", "red"])
 
-    // Size scale for countries
+    // Size scale
     const size = d3.scaleLinear()
         .domain([0, 1000])
         .range([20, 120])  // circle will be between 20 and 120 px wide
@@ -86,7 +80,7 @@ d3.csv("assets/data/test_word.csv").then(function (data) {
         .force("boundary", forceBoundary(0, 0, width, height))
         .force("center", d3.forceCenter().x(width / 2).y(height / 2)) // Attraction to the center of the svg area
         .force("charge", d3.forceManyBody().strength(.1)) // Nodes are attracted one each other of value is > 0
-        .force("collide", d3.forceCollide().strength(.2).radius(function (d) {
+        .force("collide", d3.forceCollide().strength(.1).radius(function (d) {
             return (size(d.frequency) + 3)
         }).iterations(1)) // Force that avoids circle overlapping
 
