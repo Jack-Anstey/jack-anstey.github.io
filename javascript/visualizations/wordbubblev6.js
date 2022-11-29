@@ -17,7 +17,7 @@ d3.csv("assets/data/test_word.csv").then(function (data) {
     // })
 
     // Color palette for continents?
-    const color = d3.scaleLinear().domain([0,1]).range(["blue", "red"])
+    const color = d3.scaleLinear().domain([0, 1]).range(["blue", "red"])
 
     // Size scale for countries
     const size = d3.scaleLinear()
@@ -39,16 +39,24 @@ d3.csv("assets/data/test_word.csv").then(function (data) {
     const mouseover = function (event, d) {
         Tooltip
             .style("opacity", 1)
+        d3.select(this).style("opacity", 0.75)
+            .style("stroke", "white")
+            .style("stroke-width", 5)
+        ;
     }
     const mousemove = function (event, d) {
         Tooltip
-            .html('<u>' + d.word + '</u>' + "<br>" + "frequency: "+ d.frequency +  "<br>" + "sentiment score: " + d.sentiment)
+            .html('<u>' + d.word + '</u>' + "<br>" + "frequency: " + d.frequency + "<br>" + "sentiment score: " + d.sentiment)
             .style("left", (event.pageX + 10) + "px")
             .style("top", (event.pageY - 40) + "px")
     }
     var mouseleave = function (event, d) {
         Tooltip
             .style("opacity", 0)
+        d3.select(this).style("opacity", 1)
+            .style("stroke", "black")
+            .style("stroke-width", 1)
+        ;
     }
 
     // Initialize the circle: all located at the center of the svg area
@@ -64,7 +72,7 @@ d3.csv("assets/data/test_word.csv").then(function (data) {
         .style("fill-opacity", 0.8)
         .attr("stroke", "black")
         .style("stroke-width", 1)
-        .on("mouseover", mouseover) // What to do when hovered
+        .on("mouseover", mouseover)
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave)
         .call(d3.drag() // call specific function when circle is dragged
@@ -96,17 +104,22 @@ d3.csv("assets/data/test_word.csv").then(function (data) {
         if (!event.active) simulation.alphaTarget(.03).restart();
         d.fx = d.x;
         d.fy = d.y;
+        Tooltip
+            .style("opacity", 0)
     }
 
     function dragged(event, d) {
         d.fx = event.x;
         d.fy = event.y;
+        Tooltip
+            .style("opacity", 0)
     }
 
     function dragended(event, d) {
         if (!event.active) simulation.alphaTarget(.03);
         d.fx = null;
         d.fy = null;
+
     }
 
 })
