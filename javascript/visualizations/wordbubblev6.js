@@ -143,6 +143,5 @@ function makeVis(){
             d.fy = null;
 
         }
-
     })
 }
