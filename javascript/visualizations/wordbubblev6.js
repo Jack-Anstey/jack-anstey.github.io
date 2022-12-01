@@ -7,7 +7,7 @@ let maxYear = localStorage.getItem('maxYear');
 let minYear = localStorage.getItem('minYear');
 let interval = 500;
 let change = false;
-let seziuresave = true; //This is an apt name I promise
+//let seziuresave = true; //This is an apt name I promise
 
 //when the window first loads, make the vis!
 window.addEventListener('load', function(){
@@ -26,20 +26,14 @@ window.addEventListener('load', function(){
 window.setInterval(update, interval);
 
 function update(){ //updates the values of the year range as adjusted by the user    
-    if (maxYear != localStorage.getItem('maxYear') || minYear != localStorage.getItem('minYear')){
-        if (maxYear != localStorage.getItem('maxYear')){
-            maxYear = localStorage.getItem('maxYear');
-            seziuresave = false;
-            console.log("Changed max year");
-        }
+    if (maxYear != localStorage.getItem('maxYear')){
+        maxYear = localStorage.getItem('maxYear');
+        //console.log("Changed max year");
+    }
 
-        if (minYear != localStorage.getItem('minYear')){
-            minYear = localStorage.getItem('minYear');
-            seziuresave = false;
-            console.log("Changed min year");
-        }
-    } else if (!seziuresave && !change) {
-        change = true;
+    if (minYear != localStorage.getItem('minYear')){
+        minYear = localStorage.getItem('minYear');
+        //console.log("Changed min year");
     }
         
     //let area = document.querySelector('#contentWordBubble');
@@ -50,8 +44,13 @@ function update(){ //updates the values of the year range as adjusted by the use
         //console.log("Changed width or height");
     }
 
+    if (localStorage.getItem('completed') == "true"){
+        change = true;
+    }
+
     if (change){
-        seziuresave = true;
+        //seziuresave = true;
+        localStorage.setItem('completed', "false");
         removeContent();
         makeVis();
     }

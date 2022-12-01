@@ -6,6 +6,7 @@ window.addEventListener('load', function() {
     slideTwo();
     checkSwap();
     wantSwap = "none";
+    localStorage.setItem('completed', "false");
 });
 
 //check to see if we want to swap. Once we are done, say for certain that we do not want to swap
@@ -67,6 +68,10 @@ function swapOrder(thumb){
 
 //checks to see if we want to swap. If so, see if we should swap.
 function checkSwap(){
+    if(wantSwap != false){
+        localStorage.setItem('completed', "true");
+    }
+    
     if (wantSwap == "one"){
         if (inFront != "one"){
             swapOrder("one");
