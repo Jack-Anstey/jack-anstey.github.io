@@ -33,6 +33,10 @@ let sliderTrack = document.querySelector(".sliderTrack");
 let sliderMaxValue = document.getElementById("slider1").max;
 let sliderMinValue = document.getElementById("slider1").min; //for making a slider with a different min than 0
 
+//set local storage values asap
+localStorage.setItem('minYear', parseInt(displayValOne.textContent));
+localStorage.setItem('maxYear', parseInt(displayValTwo.textContent));
+
 function slideOne(){
     wantSwap = "one";
     if(parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= minGap){

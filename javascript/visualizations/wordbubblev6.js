@@ -1,32 +1,78 @@
 // set the dimensions and margins of the graph
 let area = document.querySelector('#contentWordBubble');
-let width = area.offsetWidth;
-let height = area.offsetHeight;
+let width;
+let height;
+let svg;
+let maxYear = localStorage.getItem('maxYear');
+let minYear = localStorage.getItem('minYear');
+let interval = 500;
+let change = false;
+let seziuresave = true; //This is an apt name I promise
 
-// append the svg object to the body of the page
-let svg = d3.select("#contentWordBubble")
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
+//when the window first loads, make the vis!
 window.addEventListener('load', function(){
-    makeVis();
-});
-
-
-window.onresize = function(){
     width = area.offsetWidth;
     height = area.offsetHeight;
 
-    d3.select("svg").remove();
-    //d3.select("tooltip").remove();
-
+    // append the svg object to the body of the page
     svg = d3.select("#contentWordBubble")
         .append("svg")
         .attr("width", width)
         .attr("height", height);
 
     makeVis();
+});
+
+window.setInterval(update, interval);
+
+function update(){ //updates the values of the year range as adjusted by the user    
+    if (maxYear != localStorage.getItem('maxYear') || minYear != localStorage.getItem('minYear')){
+        if (maxYear != localStorage.getItem('maxYear')){
+            maxYear = localStorage.getItem('maxYear');
+            seziuresave = false;
+            console.log("Changed max year");
+        }
+
+        if (minYear != localStorage.getItem('minYear')){
+            minYear = localStorage.getItem('minYear');
+            seziuresave = false;
+            console.log("Changed min year");
+        }
+    } else if (!seziuresave && !change) {
+        change = true;
+    }
+        
+    //let area = document.querySelector('#contentWordBubble');
+    if (width != area.offsetWidth && height != area.offsetHeight){
+        width = area.offsetWidth;
+        height = area.offsetHeight;
+        change = true;
+        //console.log("Changed width or height");
+    }
+
+    if (change){
+        seziuresave = true;
+        removeContent();
+        makeVis();
+    }
+
+    if (interval == 500){
+        interval = 200;
+        window.setInterval(update, interval);
+    }
+
+    change = false;
+}
+
+function removeContent(){
+    d3.select("g").remove()
+    d3.select("svg").remove();
+    d3.select("tooltip").remove();
+
+    svg = d3.select("#contentWordBubble")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
 }
 
 function makeVis(){
@@ -139,3 +185,12 @@ function makeVis(){
         }
     })
 }
+
+//From https://www.sitepoint.com/delay-sleep-pause-wait/#:~:text=Bringing%20Sleep%20to%20Native%20JavaScript&text=Here%27s%20how%20you%20might%20do,%3C%20milliseconds)%3B%20%7D%20console.
+function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+  }
