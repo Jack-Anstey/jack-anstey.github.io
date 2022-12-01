@@ -195,12 +195,3 @@ function makeVis(){
         }
     })
 }
-
-//From https://www.sitepoint.com/delay-sleep-pause-wait/#:~:text=Bringing%20Sleep%20to%20Native%20JavaScript&text=Here%27s%20how%20you%20might%20do,%3C%20milliseconds)%3B%20%7D%20console.
-function sleep(milliseconds) {
-    const date = Date.now();
-    let currentDate = null;
-    do {
-      currentDate = Date.now();
-    } while (currentDate - date < milliseconds);
-  }
