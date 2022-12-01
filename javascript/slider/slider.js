@@ -1,12 +1,12 @@
 //To make this double range slider, I used code from: 
 //https://codingartistweb.com/2021/06/double-range-slider-html-css-javascript/
 
-window.onload = function(){
+window.addEventListener('load', function() {
     slideOne();
     slideTwo();
     checkSwap();
     wantSwap = "none";
-}
+});
 
 //check to see if we want to swap. Once we are done, say for certain that we do not want to swap
 window.onclick = function(){

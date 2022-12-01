@@ -9,9 +9,9 @@ let svg = d3.select("#contentWordBubble")
     .attr("width", width)
     .attr("height", height);
 
-window.onload = function(){
+window.addEventListener('load', function(){
     makeVis();
-}
+});
 
 
 window.onresize = function(){
