@@ -29,8 +29,9 @@ window.onresize = function(){
     makeVis();
 }
 
-// Read data
-d3.csv("assets/data/test_word.csv").then(function (data) {
+function makeVis(){
+    // Read data
+    d3.csv("assets/data/test_word.csv").then(function (data) {
     // Color palette
     const color = d3.scaleLinear().domain([0, 1]).range(["blue", "red"])
 
