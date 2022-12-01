@@ -1,13 +1,13 @@
 // set the dimensions and margins of the graph
 let area = document.querySelector('#contentWordBubble');
-let width;
-let height;
-let svg;
-let maxYear = localStorage.getItem('maxYear');
+let width; //width of the svg
+let height; //height of the svg
+let svg; //the svg
+let maxYear = localStorage.getItem('maxYear'); //min and the max year for live data pruning
 let minYear = localStorage.getItem('minYear');
-let interval = 500;
-let change = false;
-//let seziuresave = true; //This is an apt name I promise
+let interval = 500; //time interval for updates, milliseconds
+let change = false; //start by not updating multiple times
+let slideAdjusted = false;
 
 //when the window first loads, make the vis!
 window.addEventListener('load', function(){
@@ -23,47 +23,58 @@ window.addEventListener('load', function(){
     makeVis();
 });
 
+//set the base interval in which we check for screen updates. Start with the default value
 window.setInterval(update, interval);
 
-function update(){ //updates the values of the year range as adjusted by the user    
+function update(){
+    //updates the values of the year range as adjusted by the user
     if (maxYear != localStorage.getItem('maxYear')){
-        maxYear = localStorage.getItem('maxYear');
+        slideAdjusted = true;
         //console.log("Changed max year");
     }
 
     if (minYear != localStorage.getItem('minYear')){
-        minYear = localStorage.getItem('minYear');
+        slideAdjusted = true;
         //console.log("Changed min year");
     }
         
-    //let area = document.querySelector('#contentWordBubble');
+    //if the width changed, also signal that we should update the vis
     if (width != area.offsetWidth && height != area.offsetHeight){
         width = area.offsetWidth;
         height = area.offsetHeight;
         change = true;
         //console.log("Changed width or height");
     }
-
+    
     if (localStorage.getItem('completed') == "true"){
-        change = true;
+        //if this is true, that means that the user adjusted the slider, ergo change
+        if (slideAdjusted && (maxYear != localStorage.getItem('maxYear') || minYear != localStorage.getItem('minYear'))){
+            maxYear = localStorage.getItem('maxYear');
+            minYear = localStorage.getItem('minYear');
+            change = true;
+        } else { //otherwise they clicked and did nothing or put it back at the original date
+            localStorage.setItem('completed', "false");
+        }
     }
 
+    //if the user did request a change in some way, do it!
     if (change){
-        //seziuresave = true;
         localStorage.setItem('completed', "false");
-        removeContent();
+        slideAdjusted = false;
+        change = false;
+        removeAndReplace();
         makeVis();
     }
 
+    //after the first interval passes, make all future ones shorter
     if (interval == 500){
         interval = 200;
         window.setInterval(update, interval);
     }
-
-    change = false;
 }
 
-function removeContent(){
+//remove the current svg so that it can then be replaced
+function removeAndReplace(){
     d3.select("g").remove()
     d3.select("svg").remove();
     d3.select("tooltip").remove();
