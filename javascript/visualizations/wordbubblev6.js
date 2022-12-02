@@ -127,19 +127,24 @@ function makeVis() {
                 .style("opacity", 0)
             d3.select(this).style("opacity", 1)
                 .style("stroke", "black")
-                .style("stroke-width", 1)
-            ;
+                .style("stroke-width", 1);
         }
 
         // Three function that change the tooltip when user hover / move / leave a cell
         const mouseover_text = function (event, d) {
             Tooltip
                 .style("opacity", 1)
+                d3.select("#" + d.word).style("opacity", 0.75)
+                .style("stroke", "white")
+                .style("stroke-width", 5);
         }
 
         var mouseleave_text = function (event, d) {
             Tooltip
                 .style("opacity", 0)
+            d3.select("#" + d.word).style("opacity", 1)
+                .style("stroke", "black")
+                .style("stroke-width", 1);
         }
 
         // Initialize the circle: all located at the center of the svg area
@@ -148,6 +153,7 @@ function makeVis() {
             .data(data)
             .join("circle")
             .attr("class", "node")
+            .attr("id", d => d.word)
             .attr("r", d => size(d.frequency))
             .attr("cx", width / 2)
             .attr("cy", height / 2)
@@ -167,7 +173,7 @@ function makeVis() {
             .data(data)
             .enter()
             .append('text')
-            .text(d => d.word)
+            .text(d => d.word[0].toUpperCase() + d.word.substring(1))
             .attr('fill', 'white')
             .style("font-size", function (d) {
                 return Math.min(1 * size(d.frequency), (2 * size(d.frequency) - 8) / this.getComputedTextLength() * 14) + "px";
@@ -176,7 +182,11 @@ function makeVis() {
             .attr("text-anchor", "middle")
             .on("mouseover", mouseover_text)
             .on("mousemove", mousemove)
-            .on("mouseleave", mouseleave_text);
+            .on("mouseleave", mouseleave_text)
+            .call(d3.drag() // call specific function when circle is dragged
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended));;
 
         // Features of the forces applied to the nodes:
         const simulation = d3.forceSimulation()

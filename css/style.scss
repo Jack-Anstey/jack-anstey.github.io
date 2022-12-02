@@ -31,6 +31,13 @@ div {
     display: flex; //make every div flex
 }
 
+text {
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
 #contentWordBubble{
     border-radius: 20px;
     border: 1px solid $text-color;
