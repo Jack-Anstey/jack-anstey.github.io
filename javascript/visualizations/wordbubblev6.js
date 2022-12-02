@@ -10,7 +10,7 @@ let change = false; //start by not updating multiple times
 let slideAdjusted = false;
 
 //when the window first loads, make the vis!
-window.addEventListener('load', function(){
+window.addEventListener('load', function () {
     width = area.offsetWidth;
     height = area.offsetHeight;
 
@@ -26,29 +26,29 @@ window.addEventListener('load', function(){
 //set the base interval in which we check for screen updates. Start with the default value
 window.setInterval(update, interval);
 
-function update(){
+function update() {
     //updates the values of the year range as adjusted by the user
-    if (maxYear != localStorage.getItem('maxYear')){
+    if (maxYear != localStorage.getItem('maxYear')) {
         slideAdjusted = true;
         //console.log("Changed max year");
     }
 
-    if (minYear != localStorage.getItem('minYear')){
+    if (minYear != localStorage.getItem('minYear')) {
         slideAdjusted = true;
         //console.log("Changed min year");
     }
-        
+
     //if the width changed, also signal that we should update the vis
-    if (width != area.offsetWidth && height != area.offsetHeight){
+    if (width != area.offsetWidth && height != area.offsetHeight) {
         width = area.offsetWidth;
         height = area.offsetHeight;
         change = true;
         //console.log("Changed width or height");
     }
-    
-    if (localStorage.getItem('completed') == "true"){
+
+    if (localStorage.getItem('completed') == "true") {
         //if this is true, that means that the user adjusted the slider, ergo change
-        if (slideAdjusted && (maxYear != localStorage.getItem('maxYear') || minYear != localStorage.getItem('minYear'))){
+        if (slideAdjusted && (maxYear != localStorage.getItem('maxYear') || minYear != localStorage.getItem('minYear'))) {
             maxYear = localStorage.getItem('maxYear');
             minYear = localStorage.getItem('minYear');
             change = true;
@@ -58,7 +58,7 @@ function update(){
     }
 
     //if the user did request a change in some way, do it!
-    if (change){
+    if (change) {
         localStorage.setItem('completed', "false");
         slideAdjusted = false;
         change = false;
@@ -67,14 +67,14 @@ function update(){
     }
 
     //after the first interval passes, make all future ones shorter
-    if (interval == 500){
+    if (interval == 500) {
         interval = 200;
         window.setInterval(update, interval);
     }
 }
 
 //remove the current svg so that it can then be replaced
-function removeAndReplace(){
+function removeAndReplace() {
     d3.select("g").remove()
     d3.select("svg").remove();
     d3.select("tooltip").remove();
@@ -85,16 +85,17 @@ function removeAndReplace(){
         .attr("height", height);
 }
 
-function makeVis(){
+
+function makeVis() {
     // Read data
     d3.csv("assets/data/test_word.csv").then(function (data) {
-    // Color palette
-    const color = d3.scaleLinear().domain([0, 1]).range(["blue", "red"])
+        // Color palette
+        const color = d3.scaleLinear().domain([0, 1]).range(["blue", "red"])
 
-    // Size scale
-    const size = d3.scaleLinear()
-        .domain([0, 1000])
-        .range([20, 120])  // circle will be between 20 and 120 px wide
+        // Size scale
+        const size = d3.scaleLinear()
+            .domain([0, 1000])
+            .range([20, 120])  // circle will be between 20 and 120 px wide
 
         // create a tooltip
         const Tooltip = d3.select("#contentWordBubble")
@@ -117,7 +118,7 @@ function makeVis(){
         }
         const mousemove = function (event, d) {
             Tooltip
-                .html("\"" + '<u>' + d.word[0].toUpperCase() + d.word.substring(1)  + '</u>' + "\"" + "<br>" + "Frequency: " + d.frequency + "<br>" + "Sentiment Score: " + d.sentiment)
+                .html("\"" + '<u>' + d.word[0].toUpperCase() + d.word.substring(1) + '</u>' + "\"" + "<br>" + "Frequency: " + d.frequency + "<br>" + "Sentiment Score: " + d.sentiment)
                 .style("left", (event.pageX + 10) + "px")
                 .style("top", (event.pageY - 40) + "px")
         }
@@ -128,6 +129,17 @@ function makeVis(){
                 .style("stroke", "black")
                 .style("stroke-width", 1)
             ;
+        }
+
+        // Three function that change the tooltip when user hover / move / leave a cell
+        const mouseover_text = function (event, d) {
+            Tooltip
+                .style("opacity", 1)
+        }
+
+        var mouseleave_text = function (event, d) {
+            Tooltip
+                .style("opacity", 0)
         }
 
         // Initialize the circle: all located at the center of the svg area
@@ -151,14 +163,29 @@ function makeVis(){
                 .on("drag", dragged)
                 .on("end", dragended));
 
-    // Features of the forces applied to the nodes:
-    const simulation = d3.forceSimulation()
-        .force("boundary", forceBoundary(0, 0, width, height))
-        .force("center", d3.forceCenter().x(width / 2).y(height / 2)) // Attraction to the center of the svg area
-        .force("charge", d3.forceManyBody().strength(.1)) // Nodes are attracted one each other of value is > 0
-        .force("collide", d3.forceCollide().strength(.1).radius(function (d) {
-            return (size(d.frequency) + 3)
-        }).iterations(1)) // Force that avoids circle overlapping
+        const texts = svg.selectAll("node")
+            .data(data)
+            .enter()
+            .append('text')
+            .text(d => d.word)
+            .attr('fill', 'white')
+            .style("font-size", function (d) {
+                return Math.min(1 * size(d.frequency), (2 * size(d.frequency) - 8) / this.getComputedTextLength() * 14) + "px";
+            })
+            .attr("dy", ".3em")
+            .attr("text-anchor", "middle")
+            .on("mouseover", mouseover_text)
+            .on("mousemove", mousemove)
+            .on("mouseleave", mouseleave_text);
+
+        // Features of the forces applied to the nodes:
+        const simulation = d3.forceSimulation()
+            .force("boundary", forceBoundary(0, 0, width, height))
+            .force("center", d3.forceCenter().x(width / 2).y(height / 2)) // Attraction to the center of the svg area
+            .force("charge", d3.forceManyBody().strength(.1)) // Nodes are attracted one each other of value is > 0
+            .force("collide", d3.forceCollide().strength(.1).radius(function (d) {
+                return (size(d.frequency) + 3)
+            }).iterations(1)) // Force that avoids circle overlapping
 
         // Apply these forces to the nodes and update their positions.
         // Once the force algorithm is happy with positions ('alpha' value is low enough), simulations will stop.
@@ -168,7 +195,29 @@ function makeVis(){
                 node
                     .attr("cx", d => d.x)
                     .attr("cy", d => d.y)
+                texts.attr('x', (d) => {
+                    return d.x
+                })
+                    .attr('y', (d) => {
+                        return d.y
+                    });
             });
+
+        function adaptLabelFontSize(d) {
+            var xPadding, diameter, labelAvailableWidth, labelWidth;
+
+            xPadding = 8;
+            diameter = 2 * d.frequency;
+            labelAvailableWidth = diameter - xPadding;
+
+            labelWidth = this.getComputedTextLength();
+
+            // There is enough space for the label so leave it as is.
+            if (labelWidth < labelAvailableWidth) {
+                return null;
+            }
+        }
+
 
         // What happens when a circle is dragged?
         function dragstarted(event, d) {
