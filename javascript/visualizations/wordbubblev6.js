@@ -113,12 +113,11 @@ function makeVis(){
                 .style("opacity", 1)
             d3.select(this).style("opacity", 0.75)
                 .style("stroke", "white")
-                .style("stroke-width", 5)
-            ;
+                .style("stroke-width", 5);
         }
         const mousemove = function (event, d) {
             Tooltip
-                .html('<u>' + d.word + '</u>' + "<br>" + "frequency: " + d.frequency + "<br>" + "sentiment score: " + d.sentiment)
+                .html("\"" + '<u>' + d.word[0].toUpperCase() + d.word.substring(1)  + '</u>' + "\"" + "<br>" + "Frequency: " + d.frequency + "<br>" + "Sentiment Score: " + d.sentiment)
                 .style("left", (event.pageX + 10) + "px")
                 .style("top", (event.pageY - 40) + "px")
         }
