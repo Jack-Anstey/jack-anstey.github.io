@@ -134,7 +134,7 @@ function makeVis() {
         const mouseover_text = function (event, d) {
             Tooltip
                 .style("opacity", 1)
-                d3.select("#" + d.word).style("opacity", 0.75)
+                d3.select("#" + d.word +"-circle").style("opacity", 0.75)
                 .style("stroke", "white")
                 .style("stroke-width", 5);
         }
@@ -142,7 +142,7 @@ function makeVis() {
         var mouseleave_text = function (event, d) {
             Tooltip
                 .style("opacity", 0)
-            d3.select("#" + d.word).style("opacity", 1)
+            d3.select("#" + d.word +"-circle").style("opacity", 1)
                 .style("stroke", "black")
                 .style("stroke-width", 1);
         }
@@ -153,7 +153,7 @@ function makeVis() {
             .data(data)
             .join("circle")
             .attr("class", "node")
-            .attr("id", d => d.word)
+            .attr("id", d => d.word+"-circle")
             .attr("r", d => size(d.frequency))
             .attr("cx", width / 2)
             .attr("cy", height / 2)
