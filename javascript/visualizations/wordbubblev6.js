@@ -228,7 +228,6 @@ function makeVis() {
             }
         }
 
-
         // What happens when a circle is dragged?
         function dragstarted(event, d) {
             if (!event.active) simulation.alphaTarget(.03).restart();
@@ -249,7 +248,6 @@ function makeVis() {
             if (!event.active) simulation.alphaTarget(.03);
             d.fx = null;
             d.fy = null;
-
         }
     })
 }
