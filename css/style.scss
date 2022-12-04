@@ -14,124 +14,209 @@ $text-subheader-size: 1.5rem;
 $text-size: 1rem;
 
 html {
-    scroll-behavior: smooth;
-    box-sizing: border-box;
+  scroll-behavior: smooth;
+  box-sizing: border-box;
 }
 
-body{
-    background-color: $background-color !important;
-    color: $text-color !important;
-    //font stack
-    font-family: 'Montserrat',  -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
-    //display: flex;
-    font-size: $text-size !important;
+body {
+  background-color: $background-color !important;
+  color: $text-color !important;
+  //font stack
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+  //display: flex;
+  font-size: $text-size !important;
 }
 
 div {
-    display: flex; //make every div flex
+  display: flex; //make every div flex
+  margin-left: auto;
+  margin-right: auto; //center everything
 }
 
 //From https://stackoverflow.com/questions/6900124/how-to-make-certain-text-not-selectable-with-css
 text {
-    -webkit-user-select: none; /* Safari */        
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* IE10+/Edge */
-    user-select: none; /* Standard */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
 }
 
-#contentWordBubble{
-    border-radius: 20px;
-    border: 1px solid $text-color;
-    height: 60vh;
-    width: $content-width;
+#contentWordBubble {
+  border-radius: 20px;
+  border: 1px solid $text-color;
+  height: 60vh;
+  width: $content-width;
 }
 
 .h0 { //so big we are beyond h1 --> h0
-    font-size: $text-header-size;
+  font-size: $text-header-size;
 }
 
 .subHeader {
-    font-size: $text-subheader-size;
+  font-size: $text-subheader-size;
 }
 
 .bodyContainer {
-    flex-direction: column;
-    justify-content: center; //center whatever is in our svg divs
-    align-items: center;
+  flex-direction: column;
+  justify-content: center; //center whatever is in our svg divs
+  align-items: center;
 }
 
 .tooltip {
-    position: absolute;
-    max-width: 200px;
-    height: auto;
-    padding: 5px;
-    color: black;
-    background-color: rgb(6, 44, 56);
-    border-radius: 5px;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
-    pointer-events: none; /* CRITICAL disable mouse */
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: medium;
+  position: absolute;
+  max-width: 200px;
+  height: auto;
+  padding: 5px;
+  color: black;
+  background-color: rgb(6, 44, 56);
+  border-radius: 5px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  pointer-events: none; /* CRITICAL disable mouse */
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: medium;
 }
 
 .userInputContainer {
-    width: $content-width;
-    flex-direction: column; //this makes it so that each div in the container is a column
-    align-items: center;
+  width: $content-width;
+  flex-direction: column; //this makes it so that each div in the container is a column
+  align-items: center;
 }
 
 .valuesContainer {
-    flex-direction: row; //we want things in the value container to be all in one row
-    justify-content: center; //center the things in the values container
-    align-items: center;
-    margin-top: 40px; //add some much needed space between the slider and the range report
+  flex-direction: row; //we want things in the value container to be all in one row
+  justify-content: center; //center the things in the values container
+  align-items: center;
+  margin-top: 40px; //add some much needed space between the slider and the range report
 }
 
 .sliderContainer {
-    //CANNOT USE PADDING HERE -- WILL BREAK THE SLIDER
-    width: $slider-width;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    //filter: drop-shadow(0 0 5px #7a7a7a);
+  //CANNOT USE PADDING HERE -- WILL BREAK THE SLIDER
+  width: $slider-width;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  //filter: drop-shadow(0 0 5px #7a7a7a);
 }
 
 #slider1 { //exclusively for javascript, does nothing else. DO NOT REMOVE
-    color: $slider-thumb-color;
+  color: $slider-thumb-color;
 }
 
 //The below is heavily modified from the slider tutorial
 //https://codingartistweb.com/2021/06/double-range-slider-html-css-javascript/
 
 .sliderTrack {
-    width: 100%; //uses 100% of the space avaliable
-    height: $slider-height; //the height of the track
-    border-radius: $slider-height; //round off the ends
-    border: $slider-border-thiccness solid $slider-border-color;
+  width: 100%; //uses 100% of the space avaliable
+  height: $slider-height; //the height of the track
+  border-radius: $slider-height; //round off the ends
+  border: $slider-border-thiccness solid $slider-border-color;
 }
 
 input[type="range"] { //the bar that the slider dots live on
-    appearance: none; //hide the orignal slider
-    outline: none;
-    width:100%;
-    background-color: transparent;
-    pointer-events: none;
-    position: absolute;
+  appearance: none; //hide the orignal slider
+  outline: none;
+  width: 100%;
+  background-color: transparent;
+  pointer-events: none;
+  position: absolute;
 
-    &::-webkit-slider-thumb {
-        appearance: none; //hide the original dots
-        height: $slider-height * $size-multiplier; //the rest defines what our new ones look like
-        width: $slider-height * $size-multiplier;
-        background-color: $slider-thumb-color;
-        cursor: pointer;
-        //margin-top: -0.5em;
-        pointer-events: auto;
-        border-radius: 50%;
-        border: $slider-border-thiccness solid $slider-border-color;
-    }
+  &::-webkit-slider-thumb {
+    appearance: none; //hide the original dots
+    height: $slider-height * $size-multiplier; //the rest defines what our new ones look like
+    width: $slider-height * $size-multiplier;
+    background-color: $slider-thumb-color;
+    cursor: pointer;
+    //margin-top: -0.5em;
+    pointer-events: auto;
+    border-radius: 50%;
+    border: $slider-border-thiccness solid $slider-border-color;
+  }
 
-    &:active::-webkit-slider-thumb{
-        background-color: $slider-thumb-color-active;
-        //border: 3px solid $slider-thumb-color;
-    }
+  &:active::-webkit-slider-thumb {
+    background-color: $slider-thumb-color-active;
+    //border: 3px solid $slider-thumb-color;
+  }
+}
+
+/*Styling Selectbox*/
+.dropdown {
+  width: 300px;
+  display: inline-block;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 0 2px rgb(204, 204, 204);
+  transition: all .5s ease;
+  position: relative;
+  font-size: 14px;
+  color: #474747;
+  height: 100%;
+  text-align: left
+}
+
+.dropdown .select {
+  cursor: pointer;
+  display: block;
+  padding: 10px
+}
+
+.dropdown .select > i {
+  font-size: 13px;
+  color: #888;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+  float: right;
+  line-height: 20px
+}
+
+.dropdown:hover {
+  box-shadow: 0 0 4px rgb(204, 204, 204)
+}
+
+.dropdown:active {
+  background-color: #f8f8f8
+}
+
+.dropdown.active:hover,
+.dropdown.active {
+  box-shadow: 0 0 4px rgb(204, 204, 204);
+  border-radius: 2px 2px 0 0;
+  background-color: #f8f8f8
+}
+
+.dropdown.active .select > i {
+  transform: rotate(-90deg)
+}
+
+.dropdown .dropdown-menu {
+  position: absolute;
+  background-color: #fff;
+  width: 100%;
+  left: 0;
+  margin-top: 1px;
+  box-shadow: 0 1px 2px rgb(204, 204, 204);
+  border-radius: 0 1px 2px 2px;
+  overflow: hidden;
+  display: none;
+  max-height: 144px;
+  overflow-y: auto;
+  z-index: 9
+}
+
+.dropdown .dropdown-menu li {
+  padding: 10px;
+  transition: all .2s ease-in-out;
+  cursor: pointer
+}
+
+.dropdown .dropdown-menu {
+  padding: 0;
+  list-style: none
+}
+
+.dropdown .dropdown-menu li:hover {
+  background-color: #f2f2f2
+}
+
+.dropdown .dropdown-menu li:active {
+  background-color: #e2e2e2
 }
