@@ -9,7 +9,7 @@ let interval = 500; //time interval for updates, milliseconds
 let change = false; //start by not updating multiple times
 let slideAdjusted = false;
 
-let file = "assets/data/good_words_frequency_list.json"
+let file = "assets/data/final_lists/good_words_frequency_list.json"
 
 //when the window first loads, make the vis!
 window.addEventListener('load', function () {
@@ -28,13 +28,19 @@ window.addEventListener('load', function () {
 
 //set the base interval in which we check for screen updates. Start with the default value
 window.setInterval(update, interval);
+
+//when dropdown menu is being selected
 $('.dropdown-menu li').click(function () {
     var input = $(this).parents('.dropdown').find('input').val();
     console.log(input)
     if (input === 'vanilla') {
-        file = "assets/data/good_words_frequency_list.json";
+        file = "assets/data/final_lists/good_words_frequency_list.json";
     } else if (input === 'profanity') {
-        file = "assets/data/bad_words_frequency_list.json";
+        file = "assets/data/final_lists/bad_words_frequency_list.json";
+    } else if (input === 'color'){
+        file = "assets/data/final_lists/color_words_frequency_list.json";
+    } else if (input === 'name'){
+        file = "assets/data/final_lists/name_words_frequency_list.json";
     }
     removeAndReplace();
     makeVis(file);
