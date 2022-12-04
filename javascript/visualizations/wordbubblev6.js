@@ -265,6 +265,7 @@ function makeVis(file) {
             // Features of the forces applied to the nodes:
             const simulation = d3.forceSimulation()
                 .force("boundary", forceBoundary(0, 0, width, height))
+                .force('y', d3.forceY().y(0))
                 .force("center", d3.forceCenter().x(width / 2).y(height / 2)) // Attraction to the center of the svg area
                 .force("charge", d3.forceManyBody().strength(.1)) // Nodes are attracted one each other of value is > 0
                 .force("collide", d3.forceCollide().strength(.1).radius(function (d) {
