@@ -9,6 +9,7 @@ let interval = 500; //time interval for updates, milliseconds
 let change = false; //start by not updating multiple times
 let slideAdjusted = false;
 
+
 //when the window first loads, make the vis!
 window.addEventListener('load', function () {
     width = area.offsetWidth;
@@ -88,14 +89,63 @@ function removeAndReplace() {
 
 function makeVis() {
     // Read data
-    d3.csv("assets/data/test_word.csv").then(function (data) {
+    d3.json("assets/data/final_frequency_and_score.json")
+    .then(function (data) {
+        // Store aggregated data
+        var result = {}
+        // Store the number of years present
+        var counter = {}
+
+        // for each year in range
+        for (let i = minYear; i <= maxYear; i++){
+            // sum frequency and sentiment score
+            for (var key in data[i]){
+                if (result.hasOwnProperty(key)){
+                    result[key]["frequency"] += +data[i][key]["frequency"]
+                    result[key]["sentiment"] += +data[i][key]["sentiment_score"]
+                    counter[key] += 1
+                } else {
+                    var word = {}
+                    word["word"] = key
+                    word["frequency"] = +data[i][key]["frequency"]
+                    word["sentiment"] = +data[i][key]["sentiment_score"]
+                    result[key] = word
+                    
+                    counter[key] = 1
+                }
+            }
+        }
+
+        // average sentiment score
+        for (key in result){
+            result[key]["sentiment"] /= counter[key]
+        }
+
+        var collection = []
+        
+        // set frequency threshold
+        for (key in result){
+            collection.push(result[key])
+        }
+
+        // sort and get top 50 words
+        collection.sort((a,b) => b.frequency - a.frequency);
+
+        collection = collection.slice(0, 50)
+
+        data = collection
+
         // Color palette
         const color = d3.scaleLinear().domain([0, 1]).range(["blue", "red"])
 
+        // find max frequency
+        const max = Math.max.apply(Math, data.map(function(o) { return o.frequency; }))
+        console.log(max)
+
         // Size scale
         const size = d3.scaleLinear()
-            .domain([0, 1000])
-            .range([20, 120])  // circle will be between 20 and 120 px wide
+            .domain([0, max])
+            .range([20, 55])  // circle will be between 20 and 120 px wide
 
         // create a tooltip
         const Tooltip = d3.select("#contentWordBubble")
