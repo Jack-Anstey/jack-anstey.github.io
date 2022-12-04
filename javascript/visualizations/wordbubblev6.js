@@ -41,6 +41,8 @@ $('.dropdown-menu li').click(function () {
         file = "assets/data/final_lists/color_words_frequency_list.json";
     } else if (input === 'name'){
         file = "assets/data/final_lists/name_words_frequency_list.json";
+    } else if (input === 'food'){
+        file = "assets/data/final_lists/food_words_frequency_list.json";
     }
     removeAndReplace();
     makeVis(file);
@@ -166,7 +168,7 @@ function makeVis(file) {
             // Size scale
             const size = d3.scaleLinear()
                 .domain([0, max])
-                .range([20, 55])  // circle will be between 20 and 120 px wide
+                .range([20, 55])  // circle will be between 20 and 55 px wide
 
             // create a tooltip
             const Tooltip = d3.select("#contentWordBubble")
