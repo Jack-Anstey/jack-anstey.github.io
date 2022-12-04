@@ -16,9 +16,3 @@ $('.dropdown').click(function () {
 /*End Dropdown Menu*/
 
 
-$('.dropdown-menu li').click(function () {
-  var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>',
-      msg = '<span class="msg">Hidden input value: ';
-  $('.msg').html(msg + input + '</span>');
-});
-
