@@ -31,6 +31,7 @@ div {
     display: flex; //make every div flex
 }
 
+//From https://stackoverflow.com/questions/6900124/how-to-make-certain-text-not-selectable-with-css
 text {
     -webkit-user-select: none; /* Safari */        
     -moz-user-select: none; /* Firefox */
