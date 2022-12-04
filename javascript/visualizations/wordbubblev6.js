@@ -191,7 +191,7 @@ function makeVis(file) {
             }
             const mousemove = function (event, d) {
                 Tooltip
-                    .html("\"" + '<u>' + d.word[0].toUpperCase() + d.word.substring(1) + '</u>' + "\"" + "<br>" + "Frequency: " + d.frequency + "<br>" + "Sentiment Score: " + d.sentiment)
+                    .html("\"" + '<u>' + d.word[0].toUpperCase() + d.word.substring(1) + '</u>' + "\"" + "<br>" + "Frequency: " + d.frequency + "<br>" + "Sentiment Score: " + Number.parseFloat(d.sentiment).toFixed(2))
                     .style("left", (event.pageX + 10) + "px")
                     .style("top", (event.pageY - 40) + "px")
             }
