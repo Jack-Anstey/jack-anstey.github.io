@@ -43,7 +43,14 @@
     </div>
     <div class="vis">
         <div id="contentWordBubble"></div>
-        <div id="legend"></div>
+        <div class="legend">
+            <p id="max">Max: 1 (Very Positive)</p>
+            <div id="gradient">
+            </div>
+            <p id="sentiment">Sentiment Score</p>
+            <p id="min">Min: -1 (Very Negative)</p>
+        </div>
+
     </div>
     <div class="userInputContainer">
         <div class="valuesContainer">
@@ -54,7 +61,7 @@
             </p>
         </div>
         <div class="sliderContainer" id="swap">
-            <input type="range" min="1958" max="2021" value="1990" id="slider3" oninput="slideThree()">
+            <input class="middle" type="range" min="1958" max="2021" value="1990" id="slider3" oninput="slideThree()">
             <input type="range" min="1958" max="2021" value="1958" id="slider1" oninput="slideOne()">
             <input type="range" min="1958" max="2021" value="2021" id="slider2" oninput="slideTwo()">
 
