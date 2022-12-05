@@ -47,6 +47,7 @@ window.addEventListener('load', function () {
 
 //set the base interval in which we check for screen updates. Start with the default value
 window.setInterval(update, interval);
+top_number_words = 50;
 
 //when dropdown menu is being selected
 $('.dropdown-menu li').click(function () {
@@ -63,15 +64,6 @@ $('.dropdown-menu li').click(function () {
     } else if (input === 'food') {
         file = "assets/data/final_lists/food_words_frequency_list.json";
     }
-    removeAndReplace();
-    makeVis(file);
-});
-
-top_number_words = 50;
-
-$('.dropdown-menu li').click(function () {
-    var input = $(this).parents('.dropdown').find('input').val();
-    console.log(input)
     if (input === '10') {
         top_number_words = 10;
     } else if (input === '20') {
@@ -84,6 +76,7 @@ $('.dropdown-menu li').click(function () {
     removeAndReplace();
     makeVis(file);
 });
+
 
 function update() {
     //updates the values of the year range as adjusted by the user
