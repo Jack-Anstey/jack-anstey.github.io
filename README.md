@@ -13,3 +13,9 @@ This project would not have been possible without the work of:
 - Brian Wang [@BrianWang-SZ](https://github.com/BrianWang-SZ)
 - Zack Zhang [@zackkkkkz](https://github.com/zackkkkkz)
 - Jack Anstey [@Jack-Anstey](https://github.com/Jack-Anstey)
+
+## Wordlist References:
+- Profanity Wordlist: https://github.com/coffee-and-fun/google-profanity-words/blob/main/data/list.txt
+- Color Wordlist: https://gist.github.com/mordka/c65affdefccb7264efff77b836b5e717
+- Name Wordlist: https://www.ssa.gov/oact/babynames/decades/century.html
+- Food Wordlist: https://gist.github.com/peterdemin/920ec3eaaa0a9f3cafd3a855557f5e0c
