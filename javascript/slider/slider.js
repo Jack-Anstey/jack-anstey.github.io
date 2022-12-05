@@ -48,11 +48,10 @@ function slideOne(){
         sliderOne.value = parseInt(sliderTwo.value) - minGap;
     }
     displayValOne.textContent = sliderOne.value;
-    sliderThree.value = Math.round((parseInt(sliderTwo.value) + parseInt(sliderOne.value))/2)-1;
+    sliderThree.value = ((parseInt(sliderTwo.value) + parseInt(sliderOne.value))/2);
     fillColor();
     gap = parseInt(sliderTwo.value) - parseInt(sliderOne.value) + 1;
     displayValThree.textContent = gap;
-    // console.log(sliderThree.value)
 }
 
 function slideTwo(){
@@ -61,7 +60,7 @@ function slideTwo(){
         sliderTwo.value = parseInt(sliderOne.value) + minGap;
     }
     displayValTwo.textContent = sliderTwo.value;
-    sliderThree.value = Math.round((parseInt(sliderTwo.value) + parseInt(sliderOne.value))/2)-1;
+    sliderThree.value = ((parseInt(sliderTwo.value) + parseInt(sliderOne.value))/2);
     fillColor();
     gap = parseInt(sliderTwo.value) - parseInt(sliderOne.value) + 1;
     displayValThree.textContent = gap;
@@ -69,15 +68,23 @@ function slideTwo(){
 
 function slideThree(){
      // slider one
-    sliderOne.value = parseInt(sliderThree.value) - Math.round(gap/2);
-    if(parseInt(sliderThree.value) - parseInt(sliderMinValue) <= Math.round(gap/2)){
+    sliderOne.value = parseInt(sliderThree.value) - Math.round((gap-1)/2);
+    sliderTwo.value = parseInt(sliderOne.value) + gap - 1;
+
+    if(parseInt(sliderThree.value) - parseInt(sliderMinValue) < Math.round(gap/2)){
         sliderThree.value = parseInt(sliderOne.value) + Math.round((gap)/2);
+    }
+    if(parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= (gap-1)){
+        sliderOne.value = parseInt(sliderTwo.value) - (gap - 1) ;
+
     }
     displayValOne.textContent = sliderOne.value;
     // slider two
-    sliderTwo.value = parseInt(sliderOne.value) + gap -1;
     if(parseInt(sliderMaxValue) - parseInt(sliderThree.value) <= Math.round(gap/2)){
         sliderThree.value = parseInt(sliderTwo.value) - Math.round(gap/2);
+    }
+    if(parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= (gap-1)){
+        sliderTwo.value = parseInt(sliderOne.value) + (gap-1);
     }
     displayValTwo.textContent = sliderTwo.value;
     displayValThree.textContent = gap;
@@ -99,14 +106,14 @@ function checkSwap(){
     if(wantSwap != false){
         localStorage.setItem('completed', "true");
     }
-    
+
     if (wantSwap == "one"){
         if (inFront != "one"){
             swapOrder("one");
             inFront = "one";
-        } 
+        }
     }
-    if (wantSwap == "two"){        
+    if (wantSwap == "two"){
         if(inFront != "two") {
             swapOrder("two");
             inFront = "two";

@@ -16,10 +16,10 @@ let file = "assets/data/final_lists/good_words_frequency_list.json"
 
 
 // Add legend: circles
-let valuesToShow = [10, 50, 100];
-let xCircle = width2/2.5;
+let valuesToShow;
+let xCircle = width2 / 2.5;
 const xLabel = 200;
-let yCircle = height2/2;
+let yCircle = height2 / 2;
 
 //when the window first loads, make the vis!
 window.addEventListener('load', function () {
@@ -29,8 +29,8 @@ window.addEventListener('load', function () {
     width2 = area2.offsetWidth;
     height2 = area2.offsetHeight;
 
-    xCircle = width2/2.5;
-    yCircle = height2/2;
+    xCircle = width2 / 2.5;
+    yCircle = height2 / 2;
 
     // append the svg object to the body of the page
     svg = d3.select("#contentWordBubble")
@@ -103,8 +103,8 @@ function update() {
         height = area.offsetHeight;
         width2 = area2.offsetWidth;
         height2 = area2.offsetHeight;
-        xCircle = width2/2.5;
-        yCircle = height2/2;
+        xCircle = width2 / 2.5;
+        yCircle = height2 / 2;
         change = true;
         //console.log("Changed width or height");
     }
@@ -353,7 +353,7 @@ function makeVis(file) {
                 })
                 .style("fill", "green")
                 .attr("stroke-width", 3)
-                .style("opacity","0.5")
+                .style("opacity", "0.5")
                 .attr("stroke", "white");
 
 // Add legend: segments
@@ -376,7 +376,6 @@ function makeVis(file) {
                 .style('stroke-dasharray', ('2,2'));
 
 // Add legend: labels
-            valuesToShow
             svg2
                 .selectAll("legend")
                 .data(valuesToShow)
