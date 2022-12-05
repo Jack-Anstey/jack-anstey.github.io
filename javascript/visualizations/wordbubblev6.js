@@ -17,9 +17,9 @@ let file = "assets/data/final_lists/good_words_frequency_list.json"
 
 // Add legend: circles
 let valuesToShow = [10, 50, 100];
-const xCircle = 100;
+let xCircle = width2/2.5;
 const xLabel = 200;
-const yCircle = 200;
+let yCircle = height2/2;
 
 //when the window first loads, make the vis!
 window.addEventListener('load', function () {
@@ -28,6 +28,9 @@ window.addEventListener('load', function () {
 
     width2 = area2.offsetWidth;
     height2 = area2.offsetHeight;
+
+    xCircle = width2/2.5;
+    yCircle = height2/2;
 
     // append the svg object to the body of the page
     svg = d3.select("#contentWordBubble")
@@ -100,6 +103,8 @@ function update() {
         height = area.offsetHeight;
         width2 = area2.offsetWidth;
         height2 = area2.offsetHeight;
+        xCircle = width2/2.5;
+        yCircle = height2/2;
         change = true;
         //console.log("Changed width or height");
     }
