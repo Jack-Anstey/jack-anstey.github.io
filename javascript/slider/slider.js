@@ -28,6 +28,7 @@ let sliderTwo = document.getElementById("slider2");
 let sliderThree = document.getElementById("slider3");
 let displayValOne = document.getElementById("range1");
 let displayValTwo = document.getElementById("range2");
+let displayValThree = document.getElementById("range3");
 let minGap = 0; //zero because our ranges are inclusive (unchanged)
 let sliderTrack = document.querySelector(".sliderTrack");
 
@@ -47,10 +48,11 @@ function slideOne(){
         sliderOne.value = parseInt(sliderTwo.value) - minGap;
     }
     displayValOne.textContent = sliderOne.value;
-    sliderThree.value = Math.round((parseInt(sliderTwo.value) + parseInt(sliderOne.value))/2);
+    sliderThree.value = Math.round((parseInt(sliderTwo.value) + parseInt(sliderOne.value))/2)-1;
     fillColor();
-    gap = parseInt(sliderTwo.value) - parseInt(sliderOne.value);
-    console.log("slide 1")
+    gap = parseInt(sliderTwo.value) - parseInt(sliderOne.value) + 1;
+    displayValThree.textContent = gap;
+    console.log(sliderThree.value)
 }
 
 function slideTwo(){
@@ -59,25 +61,25 @@ function slideTwo(){
         sliderTwo.value = parseInt(sliderOne.value) + minGap;
     }
     displayValTwo.textContent = sliderTwo.value;
-    sliderThree.value = Math.round((parseInt(sliderTwo.value) + parseInt(sliderOne.value))/2);
+    sliderThree.value = Math.round((parseInt(sliderTwo.value) + parseInt(sliderOne.value))/2)-1;
     fillColor();
-    gap = parseInt(sliderTwo.value) - parseInt(sliderOne.value);
-    console.log("slide 2")
+    gap = parseInt(sliderTwo.value) - parseInt(sliderOne.value) + 1;
+    displayValThree.textContent = gap;
+    console.log(sliderThree.value)
+
 }
 
 function slideThree(){
-//     // slider one
+     // slider one
     sliderOne.value = parseInt(sliderThree.value) - Math.round(gap/2);
     if(parseInt(sliderThree.value) - parseInt(sliderMinValue) <= Math.round(gap/2)){
-        sliderThree.value = parseInt(sliderOne.value) + Math.round(gap/2);
+        sliderThree.value = parseInt(sliderOne.value) + Math.round((gap)/2);
     }
     if(parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= gap){
         sliderOne.value = parseInt(sliderTwo.value) - gap;
     }
     displayValOne.textContent = sliderOne.value;
-//
     // slider two
-    // sliderTwo.value = Number(String(sliderThree.value + Math.round(gap/
     sliderTwo.value = parseInt(sliderThree.value) + Math.round(gap/2);
     if(parseInt(sliderMaxValue) - parseInt(sliderThree.value) <= Math.round(gap/2)){
         sliderThree.value = parseInt(sliderTwo.value) - Math.round(gap/2);
@@ -86,13 +88,13 @@ function slideThree(){
         sliderTwo.value = parseInt(sliderOne.value) + gap;
     }
     displayValTwo.textContent = sliderTwo.value;
+    displayValThree.textContent = gap;
 
-    console.log("value of slider 1: " + sliderOne.value);
-    console.log("value of slider 2: " + sliderTwo.value);
-    console.log("")
-    console.log("supposed: " + Number(String(sliderThree.value + Math.round(gap/2)).slice(0, 4)))
+    // console.log("value of slider 1: " + sliderOne.value);
+    // console.log("value of slider 2: " + sliderTwo.value);
+    // console.log("")
     console.log("value of slider 3: " + sliderThree.value);
-    console.log("The gap is:" + gap);
+    // console.log("The gap is:" + gap);
     fillColor();
 }
 

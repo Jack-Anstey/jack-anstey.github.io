@@ -53,7 +53,7 @@ text {
 }
 
 #sentiment {
-    width:20px;
+    width: 20px;
     writing-mode: vertical-rl;
     font-size: 25px;
     text-align: center;
@@ -161,9 +161,12 @@ input[type=range]:active::-webkit-slider-thumb {
 #slider3::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    height: 4rem;
-    width: 4rem;
-    background-color: #1cd760;
+    height: 3rem;
+    width: 3rem;
+    background-image: url('../assets/images/favicons/favicon.ico');
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
     cursor: pointer;
     pointer-events: auto;
     border-radius: 50%;
@@ -171,7 +174,7 @@ input[type=range]:active::-webkit-slider-thumb {
 }
 
 #slider3:active::-webkit-slider-thumb {
-    background-color: #158f42
+    background-color: #158f42;
 }
 
 .dropdown {
