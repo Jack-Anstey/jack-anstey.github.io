@@ -52,7 +52,7 @@ function slideOne(){
     fillColor();
     gap = parseInt(sliderTwo.value) - parseInt(sliderOne.value) + 1;
     displayValThree.textContent = gap;
-    console.log(sliderThree.value)
+    // console.log(sliderThree.value)
 }
 
 function slideTwo(){
@@ -65,7 +65,7 @@ function slideTwo(){
     fillColor();
     gap = parseInt(sliderTwo.value) - parseInt(sliderOne.value) + 1;
     displayValThree.textContent = gap;
-    console.log(sliderThree.value)
+    // console.log(sliderThree.value)
 
 }
 
@@ -93,7 +93,7 @@ function slideThree(){
     // console.log("value of slider 1: " + sliderOne.value);
     // console.log("value of slider 2: " + sliderTwo.value);
     // console.log("")
-    console.log("value of slider 3: " + sliderThree.value);
+    // console.log("value of slider 3: " + sliderThree.value);
     // console.log("The gap is:" + gap);
     fillColor();
 }

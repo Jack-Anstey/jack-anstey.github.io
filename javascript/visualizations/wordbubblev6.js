@@ -1,15 +1,25 @@
 // set the dimensions and margins of the graph
 let area = document.querySelector('#contentWordBubble');
-let width; //width of the svg
-let height; //height of the svg
-let svg; //the svg
+let area2 = document.querySelector('#bubble_size_legend');
+let width; //width of the bubbles
+let height; //height of the bubbles
+let svg; //the bubbles
+let svg2; //the legend
+let height2 = 400;
+let width2 = 400;
 let maxYear = localStorage.getItem('maxYear'); //min and the max year for live data pruning
 let minYear = localStorage.getItem('minYear');
 let interval = 500; //time interval for updates, milliseconds
 let change = false; //start by not updating multiple times
 let slideAdjusted = false;
-
 let file = "assets/data/final_lists/good_words_frequency_list.json"
+
+
+// Add legend: circles
+let valuesToShow = [10, 50, 100];
+const xCircle = 230;
+const xLabel = 350;
+const yCircle = 330;
 
 //when the window first loads, make the vis!
 window.addEventListener('load', function () {
@@ -21,7 +31,10 @@ window.addEventListener('load', function () {
         .append("svg")
         .attr("width", width)
         .attr("height", height);
-
+    svg2 = d3.select("#bubble_size_legend")
+        .append("svg")
+        .attr("width", width2)
+        .attr("height", height2)
     makeVis(file);
 });
 
@@ -37,11 +50,11 @@ $('.dropdown-menu li').click(function () {
         file = "assets/data/final_lists/good_words_frequency_list.json";
     } else if (input === 'profanity') {
         file = "assets/data/final_lists/bad_words_frequency_list.json";
-    } else if (input === 'color'){
+    } else if (input === 'color') {
         file = "assets/data/final_lists/color_words_frequency_list.json";
-    } else if (input === 'name'){
+    } else if (input === 'name') {
         file = "assets/data/final_lists/name_words_frequency_list.json";
-    } else if (input === 'food'){
+    } else if (input === 'food') {
         file = "assets/data/final_lists/food_words_frequency_list.json";
     }
     removeAndReplace();
@@ -98,14 +111,19 @@ function update() {
 
 //remove the current svg so that it can then be replaced
 function removeAndReplace() {
-    d3.select("g").remove()
-    d3.select("svg").remove();
-    d3.select("tooltip").remove();
+    d3.selectAll("g").remove()
+    d3.selectAll("svg").remove();
+    d3.selectAll("svg2").remove()
+    d3.selectAll("tooltip").remove();
 
     svg = d3.select("#contentWordBubble")
         .append("svg")
         .attr("width", width)
         .attr("height", height);
+    svg2 = d3.select("#bubble_size_legend")
+        .append("svg")
+        .attr("width", width2)
+        .attr("height", height2)
 }
 
 function makeVis(file) {
@@ -152,7 +170,7 @@ function makeVis(file) {
             // sort and get top 50 words
             collection.sort((a, b) => b.frequency - a.frequency);
 
-            collection = collection.slice(0, 50)
+            collection = collection.slice(0, 100)
 
             data = collection
 
@@ -168,7 +186,7 @@ function makeVis(file) {
             // Size scale
             const size = d3.scaleLinear()
                 .domain([0, max])
-                .range([20, 55])  // circle will be between 20 and 55 px wide
+                .range([15, 60])  // circle will be between 20 and 55 px wide
 
             // create a tooltip
             const Tooltip = d3.select("#contentWordBubble")
@@ -268,7 +286,7 @@ function makeVis(file) {
                 .force('y', d3.forceY().y(0))
                 .force("center", d3.forceCenter().x(width / 2).y(height / 2)) // Attraction to the center of the svg area
                 .force("charge", d3.forceManyBody().strength(.1)) // Nodes are attracted one each other of value is > 0
-                .force("collide", d3.forceCollide().strength(.1).radius(function (d) {
+                .force("collide", d3.forceCollide().strength(.3).radius(function (d) {
                     return (size(d.frequency) + 3)
                 }).iterations(1)) // Force that avoids circle overlapping
 
@@ -287,6 +305,63 @@ function makeVis(file) {
                             return d.y
                         });
                 });
+            const size2 = d3.scaleLinear()
+                .domain([0, max])  // What's in the data, let's say it is percentage
+                .range([15, 60]);  // Size in pixel
+            valuesToShow = [Math.round(max / 10), Math.round(max / 2), max]
+            svg2
+                .selectAll("legend")
+                .data(valuesToShow)
+                .enter()
+                .append("circle")
+                .attr("cx", xCircle)
+                .attr("cy", function (d) {
+                    return yCircle - size2(d)
+                })
+                .attr("r", function (d) {
+                    return size2(d)
+                })
+                .style("fill", "green")
+                .attr("stroke-width", 3)
+                .style("opacity","0.5")
+                .attr("stroke", "white")
+
+// Add legend: segments
+            svg2
+                .selectAll("legend")
+                .data(valuesToShow)
+                .enter()
+                .append("line")
+                .attr('x1', function (d) {
+                    return xCircle + size2(d)
+                })
+                .attr('x2', xLabel)
+                .attr('y1', function (d) {
+                    return yCircle - size2(d)
+                })
+                .attr('y2', function (d) {
+                    return yCircle - size2(d)
+                })
+                .attr('stroke', 'white')
+                .style('stroke-dasharray', ('2,2'))
+
+// Add legend: labels
+            valuesToShow
+            svg2
+                .selectAll("legend")
+                .data(valuesToShow)
+                .enter()
+                .append("text")
+                .attr('x', xLabel)
+                .attr('y', function (d) {
+                    return yCircle - size2(d)
+                })
+                .text(function (d) {
+                    return d
+                })
+                .style("font-size", 15)
+                .style("fill", "white")
+                .attr('alignment-baseline', 'middle')
 
             function adaptLabelFontSize(d) {
                 var xPadding, diameter, labelAvailableWidth, labelWidth;
