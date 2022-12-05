@@ -27,19 +27,34 @@
             <p>What Lyrics Are Used In Popular Music?</p>
         </div>
     </div>
-    <div class="dropdown">
-        <div class="select">
-            <span>Select Category</span>
-            <i class="fa fa-chevron-left"></i>
+    <div class="test">
+        <div class="dropdown">
+            <div class="select">
+                <span>Select Category</span>
+                <i class="fa fa-chevron-left"></i>
+            </div>
+            <input type="hidden" name="category">
+            <ul class="dropdown-menu">
+                <li id="vanilla">Vanilla</li>
+                <li id="profanity">Profanity</li>
+                <li id="color">Color</li>
+                <li id="name">Name</li>
+                <li id="food">Food</li>
+            </ul>
         </div>
-        <input type="hidden" name="category">
-        <ul class="dropdown-menu">
-            <li id="vanilla">Vanilla</li>
-            <li id="profanity">Profanity</li>
-            <li id="color">Color</li>
-            <li id="name">Name</li>
-            <li id="food">Food</li>
-        </ul>
+        <div class="dropdown">
+            <div class="select">
+                <span>Select Number of Top Words</span>
+                <i class="fa fa-chevron-left"></i>
+            </div>
+            <input type="hidden" name="category">
+            <ul class="dropdown-menu">
+                <li id="10">Top 10 Words</li>
+                <li id="20">Top 20 Words</li>
+                <li id="50">Top 50 Words</li>
+                <li id="100">Top 100 Words</li>
+            </ul>
+        </div>
     </div>
     <div class="vis">
         <div id="bubble_size_legend"></div>
@@ -57,9 +72,9 @@
                 <strong><span id="range1">1958</span></strong>
                 <span> &dash; </span>
                 <strong><span id="range2">2021</span></strong>
-            <br> Over a timespan of:
+                <br> Over a timespan of:
                 <strong><span id="range3">64</span></strong>
-                 years
+                years
             </p>
         </div>
         <div class="sliderContainer" id="swap">

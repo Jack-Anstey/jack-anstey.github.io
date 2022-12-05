@@ -64,6 +64,24 @@ $('.dropdown-menu li').click(function () {
     makeVis(file);
 });
 
+top_number_words = 50;
+
+$('.dropdown-menu li').click(function () {
+    var input = $(this).parents('.dropdown').find('input').val();
+    console.log(input)
+    if (input === '10') {
+        top_number_words = 10;
+    } else if (input === '20') {
+        top_number_words = 20;
+    } else if (input === '50') {
+        top_number_words = 50;
+    } else if (input === '100') {
+        top_number_words = 100;
+    }
+    removeAndReplace();
+    makeVis(file);
+});
+
 function update() {
     //updates the values of the year range as adjusted by the user
     if (maxYear != localStorage.getItem('maxYear')) {
@@ -177,7 +195,7 @@ function makeVis(file) {
             // sort and get top 50 words
             collection.sort((a, b) => b.frequency - a.frequency);
 
-            collection = collection.slice(0, 100)
+            collection = collection.slice(0, top_number_words)
 
             data = collection
 
