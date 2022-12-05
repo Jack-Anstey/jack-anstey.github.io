@@ -1,12 +1,12 @@
 // set the dimensions and margins of the graph
 let area = document.querySelector('#contentWordBubble');
-let area2 = document.querySelector('#bubble_size_legend');
+let area2 = document.querySelector('#sentiment_legend');
 let width; //width of the bubbles
 let height; //height of the bubbles
 let svg; //the bubbles
 let svg2; //the legend
-let height2 = 400;
-let width2 = 400;
+let height2;
+let width2;
 let maxYear = localStorage.getItem('maxYear'); //min and the max year for live data pruning
 let minYear = localStorage.getItem('minYear');
 let interval = 500; //time interval for updates, milliseconds
@@ -25,6 +25,9 @@ const yCircle = 330;
 window.addEventListener('load', function () {
     width = area.offsetWidth;
     height = area.offsetHeight;
+
+    width2 = area2.offsetWidth;
+    height2 = area2.offsetHeight;
 
     // append the svg object to the body of the page
     svg = d3.select("#contentWordBubble")
@@ -77,6 +80,8 @@ function update() {
     if (width != area.offsetWidth && height != area.offsetHeight) {
         width = area.offsetWidth;
         height = area.offsetHeight;
+        width2 = area2.offsetWidth;
+        height2 = area2.offsetHeight;
         change = true;
         //console.log("Changed width or height");
     }
@@ -86,6 +91,8 @@ function update() {
         if (slideAdjusted && (maxYear != localStorage.getItem('maxYear') || minYear != localStorage.getItem('minYear'))) {
             maxYear = localStorage.getItem('maxYear');
             minYear = localStorage.getItem('minYear');
+            width2 = area2.offsetWidth;
+            height2 = area2.offsetHeight;
             change = true;
         } else { //otherwise they clicked and did nothing or put it back at the original date
             localStorage.setItem('completed', "false");
@@ -324,7 +331,7 @@ function makeVis(file) {
                 .style("fill", "green")
                 .attr("stroke-width", 3)
                 .style("opacity","0.5")
-                .attr("stroke", "white")
+                .attr("stroke", "white");
 
 // Add legend: segments
             svg2
@@ -343,7 +350,7 @@ function makeVis(file) {
                     return yCircle - size2(d)
                 })
                 .attr('stroke', 'white')
-                .style('stroke-dasharray', ('2,2'))
+                .style('stroke-dasharray', ('2,2'));
 
 // Add legend: labels
             valuesToShow
@@ -361,7 +368,7 @@ function makeVis(file) {
                 })
                 .style("font-size", 15)
                 .style("fill", "white")
-                .attr('alignment-baseline', 'middle')
+                .attr('alignment-baseline', 'middle');
 
             function adaptLabelFontSize(d) {
                 var xPadding, diameter, labelAvailableWidth, labelWidth;
