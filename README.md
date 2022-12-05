@@ -1,6 +1,6 @@
 # Project iMuse
 
-Welcome to project iMuse, a interactive visualization built using React, Bootstrap, SCSS, and of course D3.
+Welcome to project iMuse, a interactive visualization built using Bootstrap, SCSS, JavaScript, and of course D3.
 
 Using the Spotify API and Genius API in [this scraper](https://github.com/Jack-Anstey/Spotify-Scraper), we gathered tons of data about the most popular songs in recorded music history (as defined by the Billboard Hot 100) from 1958 to 2021.
 
