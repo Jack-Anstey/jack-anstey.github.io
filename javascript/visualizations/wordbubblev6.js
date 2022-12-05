@@ -1,6 +1,6 @@
 // set the dimensions and margins of the graph
 let area = document.querySelector('#contentWordBubble');
-let area2 = document.querySelector('#sentiment_legend');
+let area2 = document.querySelector('#bubble_size_legend');
 let width; //width of the bubbles
 let height; //height of the bubbles
 let svg; //the bubbles
@@ -17,9 +17,9 @@ let file = "assets/data/final_lists/good_words_frequency_list.json"
 
 // Add legend: circles
 let valuesToShow = [10, 50, 100];
-const xCircle = 230;
-const xLabel = 350;
-const yCircle = 330;
+const xCircle = 100;
+const xLabel = 200;
+const yCircle = 200;
 
 //when the window first loads, make the vis!
 window.addEventListener('load', function () {
