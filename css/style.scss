@@ -55,7 +55,7 @@ text {
   border: 1px solid $text-color;
   height: 60vh;
   width: $content-width;
-  margin-top: 40px;
+  margin-top: 20px;
   margin-right: 20px;
   //margin-left: 0;
 }
@@ -106,7 +106,8 @@ text {
   flex-direction: row; //we want things in the value container to be all in one row
   justify-content: center; //center the things in the values container
   align-items: center;
-  margin-top: 40px; //add some much needed space between the slider and the range report
+  margin-top: 10px; //add some much needed space between the slider and the range report
+  margin-bottom: 30px
 }
 
 .sliderContainer {

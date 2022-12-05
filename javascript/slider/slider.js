@@ -4,7 +4,7 @@
 window.addEventListener('load', function() {
     slideOne();
     slideTwo();
-    checkSwap();
+    slideThree();
     wantSwap = "none";
     localStorage.setItem('completed', "false");
 });
@@ -25,6 +25,7 @@ wantSwap = "none"; //if we click, do we actually want to swap
 //og variables
 let sliderOne = document.getElementById("slider1");
 let sliderTwo = document.getElementById("slider2");
+let sliderThree = document.getElementById("slider3");
 let displayValOne = document.getElementById("range1");
 let displayValTwo = document.getElementById("range2");
 let minGap = 0; //zero because our ranges are inclusive (unchanged)
@@ -33,10 +34,12 @@ let sliderTrack = document.querySelector(".sliderTrack");
 //variables to fix assumption that a slider starts at 0
 let sliderMaxValue = document.getElementById("slider1").max;
 let sliderMinValue = document.getElementById("slider1").min; //for making a slider with a different min than 0
+let gap = 0
 
 //set local storage values asap
 localStorage.setItem('minYear', parseInt(displayValOne.textContent));
 localStorage.setItem('maxYear', parseInt(displayValTwo.textContent));
+
 
 function slideOne(){
     wantSwap = "one";
@@ -44,8 +47,10 @@ function slideOne(){
         sliderOne.value = parseInt(sliderTwo.value) - minGap;
     }
     displayValOne.textContent = sliderOne.value;
+    sliderThree.value = Math.round((parseInt(sliderTwo.value) + parseInt(sliderOne.value))/2);
     fillColor();
-    
+    gap = parseInt(sliderTwo.value) - parseInt(sliderOne.value);
+    console.log("slide 1")
 }
 
 function slideTwo(){
@@ -54,8 +59,43 @@ function slideTwo(){
         sliderTwo.value = parseInt(sliderOne.value) + minGap;
     }
     displayValTwo.textContent = sliderTwo.value;
+    sliderThree.value = Math.round((parseInt(sliderTwo.value) + parseInt(sliderOne.value))/2);
+    fillColor();
+    gap = parseInt(sliderTwo.value) - parseInt(sliderOne.value);
+    console.log("slide 2")
+}
+
+function slideThree(){
+//     // slider one
+    sliderOne.value = parseInt(sliderThree.value) - Math.round(gap/2);
+    if(parseInt(sliderThree.value) - parseInt(sliderMinValue) <= Math.round(gap/2)){
+        sliderThree.value = parseInt(sliderOne.value) + Math.round(gap/2);
+    }
+    if(parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= gap){
+        sliderOne.value = parseInt(sliderTwo.value) - gap;
+    }
+    displayValOne.textContent = sliderOne.value;
+//
+    // slider two
+    // sliderTwo.value = Number(String(sliderThree.value + Math.round(gap/
+    sliderTwo.value = parseInt(sliderThree.value) + Math.round(gap/2);
+    if(parseInt(sliderMaxValue) - parseInt(sliderThree.value) <= Math.round(gap/2)){
+        sliderThree.value = parseInt(sliderTwo.value) - Math.round(gap/2);
+    }
+    if(parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= gap){
+        sliderTwo.value = parseInt(sliderOne.value) + gap;
+    }
+    displayValTwo.textContent = sliderTwo.value;
+
+    console.log("value of slider 1: " + sliderOne.value);
+    console.log("value of slider 2: " + sliderTwo.value);
+    console.log("")
+    console.log("supposed: " + Number(String(sliderThree.value + Math.round(gap/2)).slice(0, 4)))
+    console.log("value of slider 3: " + sliderThree.value);
+    console.log("The gap is:" + gap);
     fillColor();
 }
+
 
 //swap the draw order of the thumbs on the slider
 function swapOrder(thumb){
