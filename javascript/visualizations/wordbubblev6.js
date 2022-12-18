@@ -164,16 +164,16 @@ function makeVis(file) {
                 for (var key in data[i]) {
                     if (result.hasOwnProperty(key)) {
                         result[key]["frequency"] += +data[i][key]["frequency"]
-                        result[key]["sentiment"] += +data[i][key]["sentiment_score"]
-                        counter[key] += 1
+                        result[key]["sentiment"] += +data[i][key]["sentiment_score"] * word["frequency"]
+                        counter[key] += word["frequency"]
                     } else {
                         var word = {}
                         word["word"] = key
                         word["frequency"] = +data[i][key]["frequency"]
-                        word["sentiment"] = +data[i][key]["sentiment_score"]
+                        word["sentiment"] = +data[i][key]["sentiment_score"] * word["frequency"]
                         result[key] = word
 
-                        counter[key] = 1
+                        counter[key] = word["frequency"]
                     }
                 }
             }
